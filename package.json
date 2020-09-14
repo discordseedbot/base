@@ -1,0 +1,54 @@
+{
+	"name": "base",
+	"license": "GPL-3.0-or-later",
+	"version": "0.0.1",
+	"branch": "stable",
+	"description": "An Open Source General Purpose Discord Bot written in Node.JS",
+	"build": {
+		"number": 10,
+		"date": "2020_8_3",
+		"timestamp": 1599126334
+	},
+	"main": "index.js",
+	"scripts": {
+		"seedbot": "node .",
+		"debug": "node . --debug",
+		"build": "node . --buildMode"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/discordseedbot/base.git"
+	},
+	"bugs": {
+		"url": "https://github.com/discordseedbot/base/issues"
+	},
+	"homepage": "https://seedbot.xyz",
+	"author": "SeedBot Contributers [seedbot@cock.li]",
+	"contributors": [
+		{
+			"name": "Jyles Coad-Ward",
+			"contact": "jyles@dariox.club",
+			"homepage": "https://jyles.club",
+			"position": "Maintainer/Owner"
+		}
+	],
+	"ownerID": [
+		"230485481773596672"
+	],
+	"dependencies": {
+		"discord.js": "^12.2.0",
+		"fs": "0.0.1-security",
+		"http": "0.0.1-security",
+		"https": "^1.0.0",
+		"inquirer": "^7.2.0",
+		"load-json-file": "^6.2.0",
+		"opusscript": "0.0.7",
+		"parse-json": "^5.1.0",
+		"path": "^0.12.7",
+		"seedbot_addonmusic": "^13.9.15",
+		"signale": "^1.4.0",
+		"ytdl-core": "^3.2.0",
+		"ytpl": "^0.2.3",
+		"ytsearcher": "^1.2.2"
+	}
+}
