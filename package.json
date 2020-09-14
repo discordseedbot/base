@@ -11,7 +11,7 @@
 	},
 	"main": "index.js",
 	"scripts": {
-		"seedbot": "node .",
+		"start": "node .",
 		"debug": "node . --debug",
 		"build": "node . --buildMode"
 	},
