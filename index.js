@@ -72,6 +72,7 @@ if (SB.parameters.buildMode) {
 //			Declare Global Static Varaibles and other miscelanious stuff.
 try {
 	require('events').EventEmitter.defaultMaxListeners = 255;
+	SB.buildTools.buildIncrement()
 	SB.package = require("./package.json");
 	SB.prefrences = require("./prefrences.json");
 	SB.libraries.signale = require("signale");
