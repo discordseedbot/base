@@ -1,0 +1,7 @@
+{
+	"name": "terminal",
+	"version": "1.0",
+	"author": "Jyles Coad-Ward [jyles@dariox.club]",
+	"type": "generic",
+    "main": "index.js"
+}
