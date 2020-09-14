@@ -17,12 +17,16 @@ global.SB = {
 		buildMode: false,
 		debugMode: false,
 	},
-	client: "null",
+	libraries: {},
+	modules: {},
+	client: () => {
+		return new Error("Client was not defined, something has gone wrong.");
+	},
 	core: () => {
-		return throw new Error("Core Module was never defined. There might be something wrong with `/index.js`");
+		return new Error("Core Module was never defined. There might be something wrong with `/index.js`");
 	},
 	buildTools: () => {
-		return throw new Error("BuildMode is not enabled. Please read documentation for farther knowledge.")
+		return new Error("BuildMode is not enabled. Please read documentation for farther knowledge.")
 	},
 };
 if(process.argv.indexOf("--debug") > -1){
@@ -50,16 +54,18 @@ if (SB.parameters.buildMode) {
 //			Declare Global Static Varaibles and other miscelanious stuff.
 try {
 	require('events').EventEmitter.defaultMaxListeners = 255;
-	global.SB_Package = require("./package.json");
-	global.SB_Prefrences = require("./prefrences.json");
-	global.signale = require("signale");
+	SB.package = require("./package.json");
+	SB.prefrences = require("./prefrences.json");
+	SB.libraries.signale = require("signale");
 } catch (e) {
 	require("signale").error("An error Occoured when declaring [GlobalVariables]");
 	console.error(e);
 	process.exit(11);
 }
 
-console.clear();
+if (!SB.parameters.debugMode) {
+	console.clear();
+}
 function getDirectories(path) {
   return fs.readdirSync(path).filter(function (file) {
     return fs.statSync(path+'/'+file).isDirectory();
@@ -117,14 +123,14 @@ viableModules.forEach(async (m) => {
 	try {
 		let jsontemp = require(`./${m}/manifest.json`);
 		let filepush = `${m}/${jsontemp.main}`;
-		if (!SB_Debug) {
+		if (!SB.parameters.debugMode) {
 			if (m.indexOf('example') !== -1 || m.indexOf('test') !== -1) {
-				signale.error("Example Module was disabled [Not in Debug Mode]");
+				SB.libraries.signale.error("Example Module was disabled [Not in Debug Mode]");
 				jsontemp.type = "example";
 				return;
 			}
 			if (m.indexOf('debug') !== -1) {
-				signale.info("Disabed Debug Module");
+				SB.libraries.signale.info("Disabed Debug Module");
 				jsontemp.type = "disabled";
 			}
 		}
@@ -139,16 +145,16 @@ viableModules.forEach(async (m) => {
 				libraries.push(				JSON.parse(`{"name": "${jsontemp.name}","main": "${jsontemp.main}","location":"${m}"}`));
 				break;
 			case "disabled":
-				signale.info(`${jsontemp.name}@${jsontemp.version} disabled`);
+				SB.libraries.signale.info(`${jsontemp.name}@${jsontemp.version} disabled`);
 				break;
 			default:
-				signale.warn(`[modman] Unknown Module type at "${m}/manifest.json"`);
+				SB.libraries.signale.warn(`[modman] Unknown Module type at "${m}/manifest.json"`);
 				break;
 		}
-		global.SB_BotModules = botModulesToLoad;
-		global.SB_GenericModules = genericModulesToLoad;
+		global.SB.modules.bot = botModulesToLoad;
+		global.SB.modules.generic = genericModulesToLoad;
 	} catch(e) {
-		signale.error("[modman] An Error Occoured while sorting modules.");
+		SB.libraries.signale.error("[modman] An Error Occoured while sorting modules.");
 		console.error(e);
 	}
 })
@@ -158,7 +164,7 @@ libraries.forEach((m) => {
 	if (m.name === "core") {
 		// Setup the token varaible for the modules (if they are needed, in most cases they are.)
 		global.SB.core = require(`./${m.location}/${m.main}`);
-		global.SB.Libraries = libraries;
+		SB.modules.libraries = libraries;
 		SB.core.consoleInit();
 		coreFound = true;
 	}
@@ -170,17 +176,17 @@ if (!coreFound) {
 }
 
 //			Discord.JS Login with Error Catching.
-const Discord = require('discord.js');
-global.SB_Client = new Discord.Client();
-SB_Client.login(SB_Token.discord()).catch(async function (e) {
+SB.libraries.Discord = require("discord.js");
+global.SB.client = new SB.libraries.Discord.Client();
+SB.client.login(SB.core.tokenManager().discord()).catch(async function (e) {
 	console.log(e);
 	switch(e.code) {
 		case "SELF_SIGNED_CERT_IN_CHAIN":
-			signale.error("Self-Signed certificate found in chain.");
+			SB.libraries.signale.error("Self-Signed certificate found in chain.");
 			process.exit(1);
 			break;
 		case "TOKEN_INVALID":
-			signale.error("Discord Token is Invalid.")
+			SB.libraries.signale.error("Discord Token is Invalid.")
 			process.exit(1);
 			break;
 		default:
@@ -191,10 +197,11 @@ SB_Client.login(SB_Token.discord()).catch(async function (e) {
 });
 
 //			From this point all errors should be from the modules.
-SB_Client.on('ready', function(){
-	if (!SB_Debug) {
+SB.client.on('ready', function(){
+	if (!SB.parameters.debugMode) {
 		console.clear()
-		signale.complete("Discord Bot has Logged In");
+		console.log(SB.libraries)
+		SB.libraries.signale.complete("Discord Bot has Logged In");
 	} else {
 		console.log(`- - - - - Discord Bot Logged In - - - - -`)
 	}
