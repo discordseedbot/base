@@ -5,7 +5,7 @@ const signale = require('signale')
 module.exports = function() {
 
     if(process.argv.indexOf("--debug") > -1){
-        SB_Client.on('ready', () => {
+        SB.client.on('ready', () => {
             termcon.warmingUp("Waiting a tad bit before launching the Developer Console.");
             setTimeout(function() {
                 termcon.info("Welcome to SeedBot Terminal v" + require("./manifest.json").version)
@@ -58,7 +58,7 @@ function commandHandler(cmd) {
                 process.exit();
                 break;
             case "uptime":
-                termcon.returnValue(`${SB_CoreLibrary.toHHMMSS(SB_Client.uptime / 1000)} since login.`)
+                termcon.returnValue(`${SB.core.toHHMMSS(SB.client.uptime / 1000)} since login.`)
                 break;
             default:
                 console.error(new Error());

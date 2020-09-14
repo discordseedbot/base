@@ -1,6 +1,6 @@
-const Discord = require("discord.js");
+const Discord = SB.libraries.Discord;
 const { MessageEmbed } = require("discord.js");
-const prefix = SB_CoreLibrary.prefix().default;
+const prefix = SB.core.prefix().default;
 
 module.exports = async function() {
     /*
@@ -30,7 +30,7 @@ module.exports = async function() {
 
     */
 
-    SB_Client.on('message', async message => {
+    SB.client.on('message', async message => {
         //      Check if the message author is the bot, this prevents spam.
         if (message.author.bot) return;
 
@@ -57,7 +57,7 @@ module.exports = async function() {
 
             /*      If you have the developer alerts module installed and working you can use this;
 
-			SB_Libraries.forEach(async (m) => {
+			SB.modules.libraries.forEach(async (m) => {
 				if (m.name === "developer_alerts") {
 					let tmpRequire = require(`./../../${m.location}/${m.main}`).userspaceError(message, err);
 				}
@@ -68,7 +68,7 @@ module.exports = async function() {
     })
 
 
-    SB_Client.on('ready', async () => {
+    SB.client.on('ready', async () => {
         //      Tells the server hoster that the module has been loaded.
 
         /*          For Bot Modules (commands and stuff like that)

@@ -1,6 +1,6 @@
 module.exports = async function() {
     const {Signale} = require("signale");
-    global.termcon = new Signale({
+    global.SB.con.main = new Signale({
         disabled: false,
         interactive: false,
         logLevel: 'info',
@@ -50,7 +50,7 @@ module.exports = async function() {
             }
         }
     });
-    global.botModuleConsole = new Signale({
+    global.SB.con.botMod = new Signale({
         disabled: false,
         interactive: false,
         logLevel: 'info',
@@ -75,7 +75,7 @@ module.exports = async function() {
 			}
         }
     })
-    global.genericModuleConsole = new Signale({
+    global.SB.con.genericMod = new Signale({
         disabled: false,
         interactive: false,
         logLevel: 'info',
