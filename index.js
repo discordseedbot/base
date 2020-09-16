@@ -226,7 +226,7 @@ SB.client.on('ready', function(){
 		console.clear()
 		SB.libraries.signale.complete("Discord Bot connected at", new Date().toISOString());
 	} else {
-		console.log(`- - - - - Discord Bot Logged In - - - - -`);
+		console.log("- - - - - Discord Bot Logged In - - - - -");
 		console.log("Logged in at", new Date().toISOString())
 	}
 });
