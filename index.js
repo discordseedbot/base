@@ -15,7 +15,7 @@
 		If you do plan to edit this file,
 		make a pull request with your changes
 		any changes that are usefull are
-		most likyly to be merged.
+		most likely to be merged.
 	---++++============================++++---
 */
 
@@ -46,20 +46,22 @@ global.SB = {
 		return new Error("BuildMode is not enabled. Please read documentation for farther knowledge.")
 	},
 };
-//			Check if SeedBot was launched in DebugMode
-if(process.argv.indexOf("--debug") > -1){
+//			Check if SeedBot was launched in DebugMode or buildMode,
+//				if it was then we set the debugMode parameter.
+if(process.argv.indexOf("--debug") > -1 || process.argv.indexOf("--buildMode") > -1){
 	global.SB.parameters.debugMode 	= true;
 }
 if(process.argv.indexOf("--buildMode") > -1){
-	global.SB.parameters.debugMode 	= true;
 	global.SB.parameters.buildMode 	= true;
 }
-if (!fs.existsSync("./.buildTools.js")) {
+
+//			If buildTools was not found then we will disable it.
+if (!fs.existsSync("./.buildTools.js") && SB.parameters.buildMode) {
 	global.SB.parameters.buildMode 	= false;
-	throw new Error("BuildTools could not be found.");
+	throw new Error("BuildTools could not be found. Disabling.");
 }
 
-//			Increment Build Number before declaring package.json
+//			Set buildTools function so modules can use it.
 if (SB.parameters.buildMode) {
 	try {
 		global.SB.buildTools = require("./.buildTools.js");
@@ -69,10 +71,12 @@ if (SB.parameters.buildMode) {
 	}
 }
 
-//			Declare Global Static Varaibles and other miscelanious stuff.
+//			Declare Global Static Varaibles and other (sorta) pre-launch stuff.
 try {
 	require('events').EventEmitter.defaultMaxListeners = 255;
-	SB.buildTools.buildIncrement()
+	if (SB.parameters.buildMode) {
+		SB.buildTools.buildIncrement()
+	}
 	SB.package = require("./package.json");
 	SB.prefrences = require("./prefrences.json");
 	SB.libraries.signale = require("signale");
@@ -82,6 +86,7 @@ try {
 	process.exit(11);
 }
 
+//			Clear console if debugMode is not set.
 if (!SB.parameters.debugMode) {
 	console.clear();
 }
@@ -91,10 +96,9 @@ function getDirectories(path) {
   });
 }
 
+//			Check each of the directories in "modules/" if they have a "manifest.json" file.
 var moduleArray = getDirectories("modules/");
 var viableModules = [];
-
-//			Check each of the directories in "modules/" if they have a "manifest.json" file.
 moduleArray.forEach(async (m) => {
 	let tmpManiLoc = `modules/${m}/manifest.json`;
 	if (!fs.existsSync(tmpManiLoc)) {
@@ -115,23 +119,23 @@ viableModules.forEach(async (m) => {
 	try {
 		var json = require(`./${m}/manifest.json`).name;
 	} catch (e) {
-		// JSON Invalid
+		console.error(e);
 		switch (e.code) {
 			case "MODULE_NOT_FOUND":
-				signale.fatal("invalid location? but we checked that in lines 26 to 33, huh. you probably should tell the developers that.");
-				process.exit(69);
+				signale.fatal("invalid location? but we checked that in lines 100 to 107, huh. you probably should tell the developers shit went down.");
+				process.exit(10);
 				break;
 			default:
-				console.log(e);
 				signale.fatal(`[modman] Manifest is invalid at "${m}/manifest.json"`);
 				viableModules.splice(j);
 				break;
 		}
-		console.error(e)
 	}
 })
 
 //			Check if any of the modules are libraries and if they are, remove them from the viableModules array.
+
+//		Setup variables for checking modules.
 var botModulesToLoad = [];
 var genericModulesToLoad = [];
 var libraries = [];
@@ -153,15 +157,16 @@ viableModules.forEach(async (m) => {
 				jsontemp.type = "disabled";
 			}
 		}
+		jsontemp.location = `${m}`;
 		switch (jsontemp.type) {
 			case "botmod":
-				botModulesToLoad.push(		JSON.parse(`{"name": "${jsontemp.name}","main": "${jsontemp.main}","location":"${m}"}`));
+				botModulesToLoad.push(		jsontemp);
 				break;
 			case "generic":
-				genericModulesToLoad.push(	JSON.parse(`{"name": "${jsontemp.name}","main": "${jsontemp.main}","location":"${m}"}`));
+				genericModulesToLoad.push(	jsontemp);
 				break;
 			case "library":
-				libraries.push(				JSON.parse(`{"name": "${jsontemp.name}","main": "${jsontemp.main}","location":"${m}"}`));
+				libraries.push(				jsontemp);
 				break;
 			case "disabled":
 				SB.libraries.signale.info(`${jsontemp.name}@${jsontemp.version} disabled`);
@@ -219,19 +224,19 @@ SB.client.login(SB.core.tokenManager().discord()).catch(async function (e) {
 SB.client.on('ready', function(){
 	if (!SB.parameters.debugMode) {
 		console.clear()
-		console.log(SB.libraries)
-		SB.libraries.signale.complete("Discord Bot has Logged In");
+		SB.libraries.signale.complete("Discord Bot connected at", new Date().toISOString());
 	} else {
-		console.log(`- - - - - Discord Bot Logged In - - - - -`)
+		console.log(`- - - - - Discord Bot Logged In - - - - -`);
+		console.log("Logged in at", new Date().toISOString())
 	}
 });
 setTimeout(async function() {
 	botModulesToLoad.forEach(async (m) => {
-		botModuleConsole.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`)
+		SB.con.botMod.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`)
 		require(`./${m.location}/${m.main}`)();
 	});
 	genericModulesToLoad.forEach(async (m) => {
-		genericModuleConsole.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`);
+		SB.con.genericMod.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`);
 	    require(`./${m.location}/${m.main}`)();
 	});
 }, 300)
