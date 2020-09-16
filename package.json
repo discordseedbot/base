@@ -5,9 +5,9 @@
 	"branch": "stable",
 	"description": "An Open Source General Purpose Discord Bot written in Node.JS",
 	"build": {
-		"number": 13,
+		"number": 14,
 		"date": "2020_8_16",
-		"timestamp": 1600236801
+		"timestamp": 1600237689
 	},
 	"main": "index.js",
 	"scripts": {
@@ -41,14 +41,7 @@
 		"http": "0.0.1-security",
 		"https": "^1.0.0",
 		"inquirer": "^7.2.0",
-		"load-json-file": "^6.2.0",
-		"opusscript": "0.0.7",
-		"parse-json": "^5.1.0",
 		"path": "^0.12.7",
-		"seedbot_addonmusic": "^13.9.15",
 		"signale": "^1.4.0",
-		"ytdl-core": "^3.2.0",
-		"ytpl": "^0.2.3",
-		"ytsearcher": "^1.2.2"
 	}
 }
