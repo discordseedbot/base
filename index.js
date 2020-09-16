@@ -230,13 +230,11 @@ SB.client.on('ready', function(){
 		console.log("Logged in at", new Date().toISOString())
 	}
 });
-setTimeout(async function() {
-	botModulesToLoad.forEach(async (m) => {
-		SB.con.botMod.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`)
-		require(`./${m.location}/${m.main}`)();
-	});
-	genericModulesToLoad.forEach(async (m) => {
-		SB.con.genericMod.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`);
-	    require(`./${m.location}/${m.main}`)();
-	});
-}, 300)
+botModulesToLoad.forEach(async (m) => {
+	SB.con.botMod.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`)
+	require(`./${m.location}/${m.main}`)();
+});
+genericModulesToLoad.forEach(async (m) => {
+	SB.con.genericMod.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`);
+	require(`./${m.location}/${m.main}`)();
+});
