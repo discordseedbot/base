@@ -1,6 +1,6 @@
 module.exports = async function() {
     const {Signale} = require("signale");
-    global.SB.con.main = new Signale({
+    global.SB.con = new Signale({
         disabled: false,
         interactive: false,
         logLevel: 'info',
