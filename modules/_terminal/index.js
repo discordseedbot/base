@@ -2,9 +2,9 @@ var inquirer = require("inquirer");
 
 module.exports = function() {
 
-    if(process.argv.indexOf("--debug") > -1){
+    if(SB.parameters.debugMode){
         SB.client.on('ready', () => {
-            SB.con.main.warmingUp("Waiting a tad bit before launching the Developer Console.");
+            SB.con.warmingUp("Waiting a tad bit before launching the Developer Console.");
             setTimeout(function() {
                 SB.con.main.info("Welcome to SeedBot Terminal v" + require("./manifest.json").version)
                 termHandle();
@@ -23,7 +23,7 @@ async function termHandle() {
     ]).then(ans => {
         return commandHandler(ans.termInput.split(" "));
     }).catch(error => {
-        SB.libraries.signale.error(e);
+        SB.modules.node.signale.error(e);
         process.exit();
     })
 }
@@ -65,7 +65,7 @@ function commandHandler(cmd) {
         }
     } else {
         //command is invalid
-        SB.con.main.invalidCommand()
+        SB.con.invalidCommand()
     }
     setTimeout(function () {
         termHandle()
