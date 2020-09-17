@@ -5,17 +5,7 @@ module.exports.misc_randHex = function() {
 	return Math.floor(Math.random()*16777215).toString(16);
 }
 
-module.exports.consoleInit = function() {
-	require("./signale_util.js")();
-	return;
-}
-
-module.exports.prefrences = function() {
-	return require("./../../prefrences.json")
-}
-module.exports.prefix = function() {
-	return require("./../../prefrences.json").prefix;
-}
+module.exports.onLaunch = require("./onLaunch.js");
 
 module.exports.channelCount = function() {
 	let retval={"channels":0,"guilds":0,"members":0};
