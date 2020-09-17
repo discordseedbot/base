@@ -6,5 +6,9 @@
         "math": "s!math",
         "dmoj": "s!dmoj",
         "youtube": "s!yt"
+    },
+    "tokenManager": {
+        "enviromentVariable": false,
+        "tokenLocation": "aboveRoot"
     }
 }

@@ -1,76 +1,35 @@
-//Token file is below the root folder
-// e.g
-//			This files location
-//		/seedbot/dynamicPackageBot/modules/_core/token_manager.js
-//
-//			Token Locaiton
-//		/seedbot/token.json
-var tokenJSON = require("./../../../token.json");
+module.exports = ()=>{
+	var supportedTokenNames = [
+		"discord",
+		"youtube",
+		"api"
+	]
 
+	var returnJSON={};
 
-module.exports.ck = function(tokenToGet) {
-	var errorRet = {
-		"discordNotSet": "Discord Token is not set for Heroku or the name is invalid, the name must be 'DISCORD' for the enviroment varaible.",
-		"ytNotSet": "Youtube Token is not set for Heroku or the env name is invalid, the name must be 'YOUTUBE' for the enviroment varaible."
-	};
-	if (process.env._.indexOf("heroku") !== -1){
-		// Running on Heroku
-		process.env
-
-		if (!process.env.DISCORD){console.error(errorRet.discordNotSet);process.exit(1)};
-
-		switch (tokenToGet) {
-			case "discord":
-				return process.env.DISCORD;
-				break;
-			case "youtube":
-				return process.env.YOUTUBE;
-				break;
-			case "apiToken":
-				if (!process.env.APIKEY) return "seedbot-api-token";
-				return process.env.APIKEY;
-				break;
-			case "apiURL":
-				if (!process.env.APIURL) return "seedbot-api-url";
-				return process.env.APIURL;
-				break;
-			default:
-				console.error("Internal Error");
-				process.exit(1);
-				break;
-		}
-	} else {
-		// *NOT* running on heroku
-		switch (tokenToGet) {
-			case "discord":
-				return tokenJSON.discord;
-				break;
-			case "youtube":
-				return tokenJSON.youtube;
-				break;
-			case "apiToken":
-				return tokenJSON.apiToken;
-				break;
-			case "apiURL":
-				return tokenJSON.apiURL;
-				break;
-			default:
-				console.error("Internal Error");
-				process.exit(1);
-				break;
-		}
+	switch (SB.prefrences.tokenManager.tokenLocation.toLowerCase()){
+		case "aboveroot":
+			returnJSON = require("./../../../token.json");
+			break;
+		case "root":
+			returnJSON = require("./../../token.json");
+			break;
+		default:
+			require("fs").readFile(SB.prefrences.tokenManager.tokenLocation,(e,d)=>{
+				if (e) throw e;
+				returnJSON = JSON.parse(d);
+			})
+			break;
 	}
-}
 
-module.exports.discord = function() {
-	return require("./token_manager.js").ck("discord");
-}
-module.exports.youtube = function() {
-	return require("./token_manager.js").ck("youtube");
-}
-module.exports.apiToken = function() {
-	return require("./token_manager.js").ck("apiToken");
-}
-module.exports.apiURL = function() {
-	return require("./token_manager.js").ck("apiURL");
+	// Check if the user wants enviroment variables
+	if (process.env._.indexOf("SB_enviromentTokens") !== -1 && process.env._.indexOf("SB_enviromentTokens").toLowerCase() === "yes") {
+		returnJSON = {
+			"discord": process.env.SBToken_DISCORD,
+			"youtube": process.env.SBToken_YOUTUBE,
+			"api": process.env.SBToken_API,
+		};
+	}
+	SB.token = returnJSON;
+	return;
 }
