@@ -5,9 +5,9 @@
 	"branch": "stable",
 	"description": "An Open Source General Purpose Discord Bot written in Node.JS",
 	"build": {
-		"number": 27,
+		"number": 28,
 		"date": "2020_8_17",
-		"timestamp": 1600316590
+		"timestamp": 1600316890
 	},
 	"main": "index.js",
 	"scripts": {
