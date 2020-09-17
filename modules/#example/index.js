@@ -1,6 +1,6 @@
-const Discord = SB.libraries.Discord;
+const Discord = SB.modules.node.discord;
 const { MessageEmbed } = require("discord.js");
-const prefix = SB.core.prefix().default;
+const prefix = SB.prefix.default;
 
 module.exports = async function() {
     /*
@@ -45,10 +45,10 @@ module.exports = async function() {
 
         try {
             //      We use switch case statemes because they are much more easy for "if this then do this" type of coding.
-            switch (command) {
-                case "example":
+            switch (command.toLowerCase()) {
+                case "ping":
                     //      Replies to the user with the message in the function arguments.
-                    message.reply("Congratunations, You used the example command!")
+                    message.reply("Pong!")
                     break;
             }
         } catch (err) {
@@ -73,12 +73,12 @@ module.exports = async function() {
 
         /*          For Bot Modules (commands and stuff like that)
                         use this;
-        botModuleConsole.loaded("Module Name Here");
+        SB.con.module.bot.loaded("Module Name Here");
 
                     But for generic modules (an example of that is the startup module
                                                     and the terminal module)
 
-        genericModuleConsole.loaded("Module Name Here");
+        SB.con.module.loaded("Module Name Here");
 
         */
         // Here goes your code!
