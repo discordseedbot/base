@@ -56,6 +56,58 @@ if(process.argv.indexOf("--buildMode") > -1){
 	global.SB.parameters.buildMode 	= true;
 }
 
+
+
+if (!fs.existsSync("logs")){ fs.mkdirSync("logs"); } 
+var botStartTime = Math.floor(+new Date() / 1000);
+function dateFormat (date, fstr, utc) { utc = utc ? 'getUTC' : 'get'; return fstr.replace (/%[YmdHMS]/g, function (m) { switch (m) { case '%Y': return date[utc + 'FullYear'] (); case '%m': m = 1 + date[utc + 'Month'] (); break; case '%d': m = date[utc + 'Date'] (); break; case '%H': m = date[utc + 'Hours'] (); break; case '%M': m = date[utc + 'Minutes'] (); break; case '%S': m = date[utc + 'Seconds'] (); break; default: return m.slice (1); } return ('0' + m).slice (-2); }); } 
+function formatOutput(content,ptype) { var currentTime = new Date(); var currentUNIX = Math.floor(+currentTime / 1000); var currentFormattedTime = dateFormat(currentTime, "%Y/%m/%d - %H:%M:%S", true); var printType = ""; if (ptype === undefined) { ptype = "log"; } switch(ptype.toLowerCase()){ case "log":case "info":default: printType = "LOG"; break; case "info": printType = "INF"; break; case "error": printType = "ERR"; break; case "debug": printType = "DBG"; break; case "warn": printType = "WRN"; break; }; var z = `[${currentFormattedTime}]   ${printType}   ${content}`; fs.appendFileSync(`logs/${botStartTime}.log`,`${z}\r\n`); return z; }
+global.console.log = function(){
+	for (i=0;i<arguments.length;i++){
+		try {
+			process.stdout.write(`${formatOutput(arguments[i])}\r\n`);
+		} catch (e){
+			throw e;
+		}
+	}
+}
+global.console.error = function(){
+	for (i=0;i<arguments.length;i++){
+		try {
+			process.stdout.write(`${formatOutput(arguments[i],"error")}\r\n`);
+		} catch (e){
+			throw e;
+		}
+	}
+}
+global.console.debug = function(){
+	for (i=0;i<arguments.length;i++){
+		try {
+			process.stdout.write(`${formatOutput(arguments[i],"debug")}\r\n`);
+		} catch (e){
+			throw e;
+		}
+	}
+}
+global.console.warn = function(){
+	for (i=0;i<arguments.length;i++){
+		try {
+			process.stdout.write(`${formatOutput(arguments[i],"warn")}\r\n`);
+		} catch (e){
+			throw e;
+		}
+	}
+}
+global.console.info = function(){
+	for (i=0;i<arguments.length;i++){
+		try {
+			process.stdout.write(`${formatOutput(arguments[i],"info")}\r\n`);
+		} catch (e){
+			throw e;
+		}
+	}
+}
+
 //			If buildTools was not found then we will disable it.
 if (!fs.existsSync("./.buildTools.js") && SB.parameters.buildMode) {
 	global.SB.parameters.buildMode 	= false;
@@ -204,39 +256,41 @@ if (!coreFound) {
 //			Discord.JS Login with Error Catching.
 SB.modules.node.discord = require("discord.js");
 global.SB.client = new SB.modules.node.discord.Client();
-SB.client.login(SB.token.discord).catch((e)=>{
-	console.log(e);
-	switch(e.code) {
-		case "SELF_SIGNED_CERT_IN_CHAIN":
-			SB.modules.node.signale.error("Self-Signed certificate found in chain.");
-			process.exit(1);
-			break;
-		case "TOKEN_INVALID":
-			SB.modules.node.signale.error("Discord Token is Invalid.")
-			process.exit(1);
-			break;
-		default:
-			console.log(e);
-			process.exit(1);
-			break;
-	}
-});
+setTimeout(()=>{
+	SB.client.login(SB.token.discord).catch((e)=>{
+		console.log(e);
+		switch(e.code) {
+			case "SELF_SIGNED_CERT_IN_CHAIN":
+				SB.modules.node.signale.error("Self-Signed certificate found in chain.");
+				process.exit(1);
+				break;
+			case "TOKEN_INVALID":
+				SB.modules.node.signale.error("Discord Token is Invalid.")
+				process.exit(1);
+				break;
+			default:
+				console.log(e);
+				process.exit(1);
+				break;
+		}
+	});
 
-//			From this point all errors should be from the modules.
-SB.client.on('ready', function(){
-	if (!SB.parameters.debugMode) {
-		console.clear()
-		SB.modules.node.signale.complete("Discord Bot connected at", new Date().toISOString());
-	} else {
-		console.log("- - - - - Discord Bot Logged In - - - - -");
-		console.log("Logged in at", new Date().toISOString())
-	}
-});
-botModulesToLoad.forEach(async (m) => {
-	SB.con.module.bot.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`)
-	require(`./${m.location}/${m.main}`)();
-});
-genericModulesToLoad.forEach(async (m) => {
-	SB.con.module.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`);
-	require(`./${m.location}/${m.main}`)();
-});
+	//			From this point all errors should be from the modules.
+	SB.client.on('ready', function(){
+		if (!SB.parameters.debugMode) {
+			console.clear()
+			SB.modules.node.signale.complete("Discord Bot connected at", new Date().toISOString());
+		} else {
+			console.log("- - - - - Discord Bot Logged In - - - - -");
+			console.log("Logged in at", new Date().toISOString())
+		}
+	});
+	botModulesToLoad.forEach(async (m) => {
+		SB.con.module.bot.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`)
+		require(`./${m.location}/${m.main}`)();
+	});
+	genericModulesToLoad.forEach(async (m) => {
+		SB.con.module.attemptLoad(`${m.name}@${require("./"+m.location+"/manifest.json").version}`);
+		require(`./${m.location}/${m.main}`)();
+	});
+},2000)
