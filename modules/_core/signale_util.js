@@ -1,5 +1,94 @@
 try {
     const {Signale} = require("signale");
+	
+	var conn = {};
+	
+	conn.err = console.error
+	conn.log = console.log
+	conn.invalidCommand = console.warn;
+	conn.invalidArgument = console.warn;
+	
+	conn.succ = function() {
+		for (i=0;i<arguments.length;i++){
+			console.log(`Success: ${arguments[i]}`);
+		}	
+	}
+	conn.returnValue = function(){
+		var retval = "";
+		for (i=0;i<arguments.length;i++){
+			retval = retval + arguments[i] + " ";
+		}
+		console.log(`Return Value: ${retval}`);
+	}
+	conn.seeya = ()=>{console.log("Seeya!")};
+	conn.warmingUp = ()=>{console.log("Warming Up...")};
+	conn.info = console.info;
+	
+	var connmod = {};
+	connmod.attemptLoad = function(){
+		var retval = "";
+		for (i=0;i<arguments.length;i++){
+			retval = retval + arguments[i] + " ";
+		}
+		console.log(`[GenModule] Loading: ${retval}`);
+	}
+	connmod.loaded = function(){
+		var retval = "";
+		for (i=0;i<arguments.length;i++){
+			retval = retval + arguments[i] + " ";
+		}
+		console.log(`[GenModule] Loaded: ${retval}`);
+	}
+	connmod.notLoad = function(){
+		var retval = "";
+		for (i=0;i<arguments.length;i++){
+			retval = retval + arguments[i] + " ";
+		}
+		console.log(`[GenModule] Not Loading: ${retval}`);
+	}
+	connmod.prep = function(){
+		var retval = "";
+		for (i=0;i<arguments.length;i++){
+			retval = retval + arguments[i] + " ";
+		}
+		console.log(`[GenModule] Preparing: ${retval}`);
+	}
+	
+	
+	var connmodbot = {};
+	connmodbot.attemptLoad = function(){
+		var retval = "";
+		for (i=0;i<arguments.length;i++){
+			retval = retval + arguments[i] + " ";
+		}
+		console.log(`[BotModule] Loading: ${retval}`);
+	}
+	connmodbot.loaded = function(){
+		var retval = "";
+		for (i=0;i<arguments.length;i++){
+			retval = retval + arguments[i] + " ";
+		}
+		console.log(`[BotModule] Loaded: ${retval}`);
+	}
+	connmodbot.notLoad = function(){
+		var retval = "";
+		for (i=0;i<arguments.length;i++){
+			retval = retval + arguments[i] + " ";
+		}
+		console.log(`[BotModule] Not Loading: ${retval}`);
+	}
+	connmodbot.prep = function(){
+		var retval = "";
+		for (i=0;i<arguments.length;i++){
+			retval = retval + arguments[i] + " ";
+		}
+		console.log(`[BotModule] Preparing: ${retval}`);
+	}
+	
+	global.SB.con = conn;
+	global.SB.con.module = connmod;
+	global.SB.con.module.bot = connmodbot;
+	/*
     global.SB.con = new Signale({
         disabled: false,
         interactive: false,
@@ -100,6 +189,7 @@ try {
     		}
         }
     })
+	*/
 } catch(e) {
     console.error(e);
     process.exit(12);

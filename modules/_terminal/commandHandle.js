@@ -30,10 +30,10 @@ module.exports.print = async function (data) {
             phunk.bot(commandArguments)
             break;
         case "package":
-            termcon.returnValue(require("./../../package.json"));
+            SB.con.returnValue(require("./../../package.json"));
             break;
         default:
-            termcon.invalidArgument()
+            SB.con.invalidArgument()
             break;
     }
 }
@@ -41,5 +41,5 @@ module.exports.print = async function (data) {
 module.exports.eval = async function(ca) {
     delete(ca[0])
     let command = ca.join(" ");
-    termcon.returnValue(eval(command))
+    SB.con.returnValue(eval(command))
 }

@@ -1,4 +1,4 @@
-module.exports = async ()=>{
+module.exports = ()=>{
     // Shit to do as soon as the core module is detected.
 
         // Call signale_util.js for pretty logging.
@@ -7,5 +7,5 @@ module.exports = async ()=>{
     SB.prefrences = require("./../../prefrences.json");
     SB.prefix = SB.prefrences.prefix;
 
-    require("./token_manager.js")();
+    require("./token_manager.js");
 }

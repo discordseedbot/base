@@ -1,20 +1,20 @@
 async function apiErrorCheck(error) {
     if (error.name !== "DiscordAPIError") {
-        SB.con.main.invalidArgument()
+        SB.con.invalidArgument()
     } else {
-        SB.con.main.error(new Error(error))
+        SB.con.error(new Error(error))
     }
 }
 
 module.exports.user = async function(ca) {
     if (ca[2] === undefined) {
-        SB.con.main.invalidArgument()
+        SB.con.invalidArgument()
         return;
     }
     switch(ca[2]){
         case "count":
         case "size":
-            SB.con.main.returnValue(SB_CoreLibrary.userCount());
+            SB.con.returnValue(SB_CoreLibrary.userCount());
             break;
         default:
             SB_Client.users.fetch(ca[2])
@@ -25,16 +25,16 @@ module.exports.user = async function(ca) {
 }
 module.exports.channel = async function(ca) {
     if (ca[2] === undefined) {
-        SB.con.main.invalidArgument()
+        SB.con.invalidArgument()
         return;
     }
     switch(ca[2]){
         case "count":
         case "size":
-            SB.con.main.returnValue(SB_CoreLibrary.channelCount())
+            SB.con.returnValue(SB_CoreLibrary.channelCount())
             break;
         default:
-            SB.con.main.invalidArgument()
+            SB.con.invalidArgument()
             break;
     }
 }
@@ -53,15 +53,15 @@ module.exports.guild = async function(ca) {
     switch(ca[2]){
         case "count":
         case "size":
-            SB.con.main.returnValue(SB_CoreLibrary.guildCount())
+            SB.con.returnValue(SB_CoreLibrary.guildCount())
             break;
         case "list":
-            SB.con.main.returnValue(guildList().Promise);
+            SB.con.returnValue(guildList().Promise);
             break;
         default:
             if (ca[2] === undefined) {
                 try{
-                    SB.con.main.returnValue(`\n${guildList()}`);
+                    SB.con.returnValue(`\n${guildList()}`);
                     return;
                 } catch(e) {
                     console.error(e);
@@ -69,23 +69,23 @@ module.exports.guild = async function(ca) {
                 }
             }
             SB_Client.guilds.get(ca[2])
-                .then(info => SB.con.main.returnValue(info) )
+                .then(info => SB.con.returnValue(info) )
                 .catch(error => guildList(error) )
             break;
     }
 }
 module.exports.bot = async function(ca) {
     if (ca[2] === undefined) {
-        SB.con.main.invalidArgument()
+        SB.con.invalidArgument()
         return;
     }
     switch(ca[2]){
         case "libraries":
-            SB.con.main.returnValue(`\n${SB_Libraries}`);
+            SB.con.returnValue(`\n${SB_Libraries}`);
             return;
             break;
         default:
-            SB.con.main.invalidArgument()
+            SB.con.invalidArgument()
             break;
     }
 }

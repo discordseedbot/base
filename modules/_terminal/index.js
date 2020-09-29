@@ -6,7 +6,7 @@ module.exports = function() {
         SB.client.on('ready', () => {
             SB.con.warmingUp("Waiting a tad bit before launching the Developer Console.");
             setTimeout(function() {
-                SB.con.main.info("Welcome to SeedBot Terminal v" + require("./manifest.json").version)
+                SB.con.info("Welcome to SeedBot Terminal v" + require("./manifest.json").version)
                 termHandle();
             }, 2500)
         })
@@ -52,11 +52,11 @@ function commandHandler(cmd) {
                 break;
             case "exit":
             case "quit":
-                SB.con.main.seeya()
+                SB.con.seeya()
                 process.exit();
                 break;
             case "uptime":
-                SB.con.main.returnValue(`${SB.core.toHHMMSS(SB.client.uptime / 1000)} since login.`)
+                SB.con.returnValue(`${SB.core.toHHMMSS(SB.client.uptime / 1000)} since login.`)
                 break;
             default:
                 console.error(new Error());
