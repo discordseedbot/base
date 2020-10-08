@@ -1,7 +1,7 @@
 {
 	"name": "base",
 	"license": "GPL-3.0-or-later",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"branch": "stable",
 	"description": "An Open Source General Purpose Discord Bot written in Node.JS",
 	"build": {
