@@ -1,19 +1,19 @@
 const Discord = SB.modules.node.discord;
 const { MessageEmbed } = require("discord.js");
-const prefix = SB.prefix.default;
 
 module.exports = async function() {
+	const prefix = SB.prefix.default;
     /*
 
     --------        Getting Started         --------
 
-    SeedBot is currntly using Discord.js v11 that means you should use the v11 guide
+    SeedBot is currntly using Discord.js v12 that means you should use the v12 guide
 
     There are some custom varaibles that are given to everything (global varaible)
     so here is what they are
-    SB_Client is the Discord.JS Client
-    SB_Token is a function for the tokens, SB_Token.discord() is the discord token, etc...
-    SB_Libraries is a JSON with the installed libraries, you should try debug mode and use the command "print libraries"
+    SB.client is the Discord.JS Client
+    SB.token is a json for the tokens, SB.token.discord is the discord token, etc...
+    SB.modules.libraries is a JSON with the installed libraries, you should try debug mode and use the command "print libraries"
 
 
     A great way to find out how the discord bot works is by going through the main "index.js" file
@@ -22,7 +22,7 @@ module.exports = async function() {
         new things.
 
     Here is some documentation for the current version of discord.js we're using;
-        Offical Documentation           -   https: //discord.js.org/#/docs/main/v11/general/welcome
+        Offical Documentation           -   https: //discord.js.org/#/docs/main/v12/general/welcome
         Community Made Documentation    -   https: //discordjs.guide/#before-you-begin
 
     For Converting v11 to v12 (and vice versa) this is some really good documentation
