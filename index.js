@@ -58,9 +58,9 @@ if(process.argv.indexOf("--buildMode") > -1){
 
 
 
-if (!fs.existsSync("logs")){ fs.mkdirSync("logs"); } 
+if (!fs.existsSync("logs")){ fs.mkdirSync("logs"); }
 var botStartTime = Math.floor(+new Date() / 1000);
-function dateFormat (date, fstr, utc) { utc = utc ? 'getUTC' : 'get'; return fstr.replace (/%[YmdHMS]/g, function (m) { switch (m) { case '%Y': return date[utc + 'FullYear'] (); case '%m': m = 1 + date[utc + 'Month'] (); break; case '%d': m = date[utc + 'Date'] (); break; case '%H': m = date[utc + 'Hours'] (); break; case '%M': m = date[utc + 'Minutes'] (); break; case '%S': m = date[utc + 'Seconds'] (); break; default: return m.slice (1); } return ('0' + m).slice (-2); }); } 
+function dateFormat (date, fstr, utc) { utc = utc ? 'getUTC' : 'get'; return fstr.replace (/%[YmdHMS]/g, function (m) { switch (m) { case '%Y': return date[utc + 'FullYear'] (); case '%m': m = 1 + date[utc + 'Month'] (); break; case '%d': m = date[utc + 'Date'] (); break; case '%H': m = date[utc + 'Hours'] (); break; case '%M': m = date[utc + 'Minutes'] (); break; case '%S': m = date[utc + 'Seconds'] (); break; default: return m.slice (1); } return ('0' + m).slice (-2); }); }
 function formatOutput(content,ptype) { var currentTime = new Date(); var currentUNIX = Math.floor(+currentTime / 1000); var currentFormattedTime = dateFormat(currentTime, "%Y/%m/%d - %H:%M:%S", true); var printType = ""; if (ptype === undefined) { ptype = "log"; } switch(ptype.toLowerCase()){ case "log":case "info":default: printType = "LOG"; break; case "info": printType = "INF"; break; case "error": printType = "ERR"; break; case "debug": printType = "DBG"; break; case "warn": printType = "WRN"; break; }; var z = `[${currentFormattedTime}]   ${printType}   ${content}`; fs.appendFileSync(`logs/${botStartTime}.log`,`${z}\r\n`); return z; }
 global.console.log = function(){
 	for (i=0;i<arguments.length;i++){
@@ -212,6 +212,7 @@ viableModules.forEach(async (m) => {
 			}
 		}
 		jsontemp.location = `${m}`;
+		jsontemp.f = require(`./${jsontemp}/${main}`);
 		switch (jsontemp.type) {
 			case "botmod":
 				botModulesToLoad.push(		jsontemp);
