@@ -50,17 +50,19 @@ global.SB = {
 };
 //			Check if SeedBot was launched in DebugMode or buildMode,
 //				if it was then we set the debugMode parameter.
-if(process.argv.indexOf("--debug") > -1 || process.argv.indexOf("--buildMode") > -1){
+if(process.argv.indexOf("--debug") > -1){
 	global.SB.parameters.debugMode 	= true;
+	global.SB.parameters.safeMode 	= true;
 }
 if(process.argv.indexOf("--buildMode") > -1){
+	global.SB.parameters.debugMode 	= true;
 	global.SB.parameters.buildMode 	= true;
+	global.SB.parameters.safeMode 	= true;
 }
 if(process.argv.indexOf("--safe") > -1){
 	global.SB.parameters.safeMode 	= true;
 }
-
-if (!SB.parameters.buildMode || !SB.parameters.safeMode) {
+if (!SB.parameters.safeMode) {
 	if (!fs.existsSync("logs")){ fs.mkdirSync("logs"); }
 	var botStartTime = Math.floor(+new Date() / 1000);
 	function dateFormat (date, fstr, utc) { utc = utc ? 'getUTC' : 'get'; return fstr.replace (/%[YmdHMS]/g, function (m) { switch (m) { case '%Y': return date[utc + 'FullYear'] (); case '%m': m = 1 + date[utc + 'Month'] (); break; case '%d': m = date[utc + 'Date'] (); break; case '%H': m = date[utc + 'Hours'] (); break; case '%M': m = date[utc + 'Minutes'] (); break; case '%S': m = date[utc + 'Seconds'] (); break; default: return m.slice (1); } return ('0' + m).slice (-2); }); }
@@ -110,20 +112,19 @@ if (!SB.parameters.buildMode || !SB.parameters.safeMode) {
 			}
 		}
 	}
-
-	//			If buildTools was not found then we will disable it.
-	if (!fs.existsSync("./.buildTools.js") && SB.parameters.buildMode) {
-		global.SB.parameters.buildMode 	= false;
-		throw new Error("BuildTools could not be found. Disabling.");
-	} else {
-		//			Set buildTools function so modules can use it.
-		if (SB.parameters.buildMode) {
-			try {
-				global.SB.buildTools = require("./.buildTools.js");
-			} catch(e) {
-				console.error(e);
-				process.exit(10);
-			}
+}
+//			If buildTools was not found then we will disable it.
+if (!fs.existsSync("./.buildTools.js") && SB.parameters.buildMode) {
+	global.SB.parameters.buildMode 	= false;
+	throw new Error("BuildTools could not be found. Disabling.");
+} else {
+	//			Set buildTools function so modules can use it.
+	if (SB.parameters.buildMode) {
+		try {
+			SB.buildTools = require("./.buildTools.js");
+		} catch(e) {
+			console.error(e);
+			process.exit(10);
 		}
 	}
 }
