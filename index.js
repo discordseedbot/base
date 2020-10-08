@@ -265,6 +265,7 @@ global.SB.client = new SB.modules.node.discord.Client();
 
 // Declare Enmap
 SB.modules.node.enmap = require("enmap")
+SB.client.settings = {};
 
 setTimeout(()=>{
 	SB.client.login(SB.token.discord).catch((e)=>{
