@@ -15,11 +15,16 @@ switch (SB.prefrences.core.tokenManager.tokenLocation.toLowerCase()){
 		returnJSON = require("./../../token.json");
 		break;
 	default:
-		require("fs").readFile(SB.prefrences.core.tokenManager.tokenLocation,(e,d)=>{
-			if (e) throw e;
-			returnJSON = JSON.parse(d);
-			console.log(returnJSON)
-		})
+		if (require("fs").exists(SB.prefrences.core.tokenManager.tokenLocation)) {
+			require("fs").readFile(SB.prefrences.core.tokenManager.tokenLocation, (e, d) => {
+				if (e) throw e;
+				returnJSON = JSON.parse(d);
+				console.log(returnJSON)
+			})
+		} else {
+			throw "Config Location does not exist.";
+			process.exit(2);
+		}
 		break;
 }
 
