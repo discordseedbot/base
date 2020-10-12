@@ -7,5 +7,6 @@ module.exports = ()=>{
     SB.prefrences = require("./../../prefrences.json");
     SB.prefix = SB.prefrences.prefix;
 
+	require("./statsTimer.js").startup();
     require("./token_manager.js");
 }
