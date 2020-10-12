@@ -1,12 +1,12 @@
 {
-    "prefix": {
-        "default": "s!",
-        "dev": "s~",
-        "music": "s?",
-        "math": "s!math",
-        "dmoj": "s!dmoj",
-        "youtube": "s!yt"
-    },
+	"prefix": {
+		"default": "s!",
+		"dev": "s~",
+		"music": "s?",
+		"math": "s!math",
+		"dmoj": "s!dmoj",
+		"youtube": "s!yt"
+	},
 	"core": {
 		"stats": {
 			"timer": 600,
@@ -15,6 +15,11 @@
 		"tokenManager": {
 			"enviromentVariable": false,
 			"tokenLocation": "aboveRoot"
+		},
+		"localization": {
+			"name": "SeedBot",
+			"website": "https://seedbot.xyz",
+			"contact": "contact@dariox.club"
 		}
 	}
 }
