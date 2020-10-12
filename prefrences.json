@@ -7,8 +7,14 @@
         "dmoj": "s!dmoj",
         "youtube": "s!yt"
     },
-    "tokenManager": {
-        "enviromentVariable": false,
-        "tokenLocation": "aboveRoot"
-    }
+	"core": {
+		"stats": {
+			"timer": 600,
+			"loginRetryTimer": 1
+		},
+		"tokenManager": {
+			"enviromentVariable": false,
+			"tokenLocation": "aboveRoot"
+		}
+	}
 }
