@@ -3,7 +3,8 @@ mex = {}
 
 mex.update = {};
 
-mex.update = ()=>{
+mex.update = () => {
+	// If you don't understand what this function does, please leave.
 	let retval={"channelCount":0,"guildCount":0,"memberCount":0};
 	SB.client.guilds.cache.forEach(m => {
 	  retval.memberCount+=m.memberCount
@@ -19,9 +20,12 @@ mex.update.force = ()=>{
 
 mex.startup = ()=>{
 	SB.core.stats = {};
-	// Call timerLoop when discord.js has logged in.
-	setTimeout(()=>{
-		if(SB.client.on !== undefined) {
+	
+	setTimeout(() => {
+		// Call when SB.client exists, since onLaunch.js is called 
+		// before SB.client is created.
+		if (SB.client.on !== undefined) {
+			// Call timerLoop when discord.js has logged in.
 			SB.client.on('ready',()=>{
 				console.debug("[statsTimer] Timer Loop Called");
 				mex.timerLoop();

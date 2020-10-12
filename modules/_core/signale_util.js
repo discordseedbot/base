@@ -1,6 +1,8 @@
 try {
     const {Signale} = require("signale");
-	
+
+    // Please don't look here, its a pigs stye
+
 	var conn = {};
 	
 	conn.err = console.error
