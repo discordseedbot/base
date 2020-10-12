@@ -42,8 +42,12 @@ mex.timerLoop = ()=>{
 		throw "Timer Object in SB.core.stats does not exist";
 	}
 	SB.core.stats = mex.update();
-	setTimeout(()=>{
-		SB.core.stats = mex.update();
+	setTimeout(() => {
+		var statUpdate = mex.update();
+		SB.core.stats = statUpdate;
+		SB.core.channelCount	= statUpdate.channelCount;
+		SB.core.guildCount		= statUpdate.guildCount;
+		SB.core.userCount		= statUpdate.userCount;
 	},SB.prefrences.core.stats.timer*1000)
 }
 
