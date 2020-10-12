@@ -1,41 +1,22 @@
-module.exports.tokenManager = function() {
+var mex = {}
+
+mex.tokenManager = function() {
 	return require("./token_manager.js");
 }
-module.exports.misc_randHex = function() {
+mex.misc_randHex = function() {
 	return Math.floor(Math.random()*16777215).toString(16);
 }
 
-module.exports.onLaunch = require("./onLaunch.js");
+mex.onLaunch = require("./onLaunch.js");
 
-module.exports.channelCount = function() {
-	let retval={"channels":0,"guilds":0,"members":0};
-	SB_Client.guilds.cache.forEach(m => {
-	  //retval.members+=m.memberCount
-	  //retval.guilds+=1
-	  retval.channels+=m.channels.cache.size
-	})
-	return retval.channels;
-}
-module.exports.guildCount = function() {
-	let retval={"channels":0,"guilds":0,"members":0};
-	SB_Client.guilds.cache.forEach(m => {
-	  //retval.members+=m.memberCount
-	  retval.guilds+=1
-	  //retval.channels+=m.channels.cache.size
-	})
-	return retval.guilds;
-}
-module.exports.userCount = function() {
-  let retval={"channels":0,"guilds":0,"members":0};
-  SB_Client.guilds.cache.forEach(m => {
-    retval.members+=m.memberCount
-    //retval.guilds+=1
-    //retval.channels+=m.channels.cache.size
-  })
-  return retval.members;
-}
+// This will be populated by statsTimer.js
+mex.channelCount = 0;
+mex.guildCount = 0;
+mex.userCount = 0;
 
-module.exports.toHHMMSS = function(beans) {
+mex.stats = require("./statsTimer.js");
+
+mex.toHHMMSS = function(beans) {
   var sec_num = parseInt(beans, 10); // don't forget the second param
   var hours   = Math.floor(sec_num / 3600);
   var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
@@ -46,3 +27,5 @@ module.exports.toHHMMSS = function(beans) {
   if (seconds < 10) {seconds = "0"+seconds;}
   return hours+':'+minutes+':'+seconds;
 }
+
+module.exports = mex;
