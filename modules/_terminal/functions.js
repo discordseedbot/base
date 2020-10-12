@@ -17,7 +17,7 @@ module.exports.user = async function(ca) {
             SB.con.returnValue(SB_CoreLibrary.userCount());
             break;
         default:
-            SB_Client.users.fetch(ca[2])
+            SB.client.users.cache.fetch(ca[2])
                 .then(info => termcon.returnValue(info) )
                 .catch(error => apiErrorCheck(error) )
             break;
@@ -31,7 +31,7 @@ module.exports.channel = async function(ca) {
     switch(ca[2]){
         case "count":
         case "size":
-            SB.con.returnValue(SB_CoreLibrary.channelCount())
+            SB.con.returnValue(SB.core.stats.channelCount)
             break;
         default:
             SB.con.invalidArgument()
@@ -41,7 +41,7 @@ module.exports.channel = async function(ca) {
 
 function guildList() {
     let tmplist;
-    SB_Client.guilds.array().sort().toString().split(",").forEach(async (m) => {
+    SB.client.guilds.cache.array().sort().toString().split(",").forEach(async (m) => {
         tmplist+= `${m}`;
         if (m !== tmplist[tmplist.length - 1]) {
             tmplist+="\n";
@@ -53,10 +53,10 @@ module.exports.guild = async function(ca) {
     switch(ca[2]){
         case "count":
         case "size":
-            SB.con.returnValue(SB_CoreLibrary.guildCount())
+            SB.con.returnValue(SB.core.stats.guildCount)
             break;
         case "list":
-            SB.con.returnValue(guildList().Promise);
+            SB.con.returnValue(guildList());
             break;
         default:
             if (ca[2] === undefined) {
@@ -81,7 +81,7 @@ module.exports.bot = async function(ca) {
     }
     switch(ca[2]){
         case "libraries":
-            SB.con.returnValue(`\n${SB_Libraries}`);
+            SB.con.returnValue(`\n${SB.modules.libraries}`);
             return;
             break;
         default:
