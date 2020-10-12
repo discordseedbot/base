@@ -39,10 +39,10 @@ global.SB = {
 	libraries: {},
 	modules: {"node":{}},
 	client: () => {
-		return new Error("Client has not been, something has gone wrong with your module or the loader.");
+		return new Error("Client has not been initialized, something has gone wrong with your module or the loader.");
 	},
 	core: () => {
-		return new Error("Core Module has not been. There might be something wrong with `/index.js` or with the core module itself.");
+		return new Error("Core Module has not been initialized. There might be something wrong with `/index.js` or with the core module itself.");
 	},
 	buildTools: () => {
 		return new Error("BuildMode is not enabled. Please read documentation for farther knowledge.")
