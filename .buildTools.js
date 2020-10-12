@@ -12,7 +12,7 @@ module.exports.buildIncrement = async function() {
 
 	    fs.writeFile("./package.json", JSON.stringify(file,null,"\t"), function writeJSON(err) {
 	        if (err) throw err;
-	        console.log("incremented package number");
+	        console.debug("[buildTools] Incremented Build Number");
 	    });
 	} catch (e) {
 		console.error(e);
