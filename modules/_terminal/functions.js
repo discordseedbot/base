@@ -68,7 +68,7 @@ module.exports.guild = async function(ca) {
                     process.exit(1)
                 }
             }
-            SB_Client.guilds.get(ca[2])
+            SB.client.guilds.cache.get(ca[2])
                 .then(info => SB.con.returnValue(info) )
                 .catch(error => guildList(error) )
             break;
