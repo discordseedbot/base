@@ -85,14 +85,10 @@ if (!SB.parameters.safeMode) {
 			}
 		}
 	}
+
+	// Disable debug output when not in debug mode
 	global.console.debug = function(){
-		for (i=0;i<arguments.length;i++){
-			try {
-				process.stdout.write(`${formatOutput(arguments[i],"debug")}\r\n`);
-			} catch (e){
-				throw e;
-			}
-		}
+		return;
 	}
 	global.console.warn = function(){
 		for (i=0;i<arguments.length;i++){
