@@ -2,7 +2,8 @@
 ## Quick Links
 - [SB](#global-sb-variable)
 - [SB.modules.example](#module-json-example)
-- [Tree Creation Refrence Table](#tree-refrence-characters)
+- [Tree Creation Refrence Table](#tree-refrence-charaters)
+- [Loader Breakdown](#loader-breakdown)
 
 ### Global SB Variable
 ```
@@ -97,3 +98,43 @@ Module JSON
 | └ | 192 | `&boxur;` |
 | ─ | 196 | `&boxh;` |
 | │ | 179 | `&boxv;` |
+
+### Loader Breakdown
+- Declare `fs` const
+- Check if `node_modules/` exists in root directory
+- Setup `global.SB` variable
+`Startup Argument Processing`
+- Debug Flag: debugMode and safeMode Toggled
+- buildMode: debugMode, safeMode, and Build Mode Toggled
+- safeMode: Only safeMode is toggled
+`Custom Logging`
+- This only executes if safeMode is false.
+	- Catches console logging and adds date, and log type to the stdout.
+	- This also writes to a .log file in the log directory with the file name of the botStart UNIX timestamp.
+	- Overwrites log, error, warn, and info.
+	- When not in safe mode console.debug is shown.
+`buildTools`
+- If buildTools exists we set SB.buildTools to the require of buildTools.
+- If buildTools is not found an error is thrown and whenever the function is called an error is thrown
+`Global Misc Setup`
+- defaultMaxListeners is set to 255
+- if buildMode is enabled the build number is incremented
+- `SB.package` is defined
+- `SB.prefrences` is defined
+- `SB.modules.node.signale` is defined
+- Console is cleared if safeMode is not enabled
+`Module Init`
+- Get array of all folders in `modules/`
+- Check if manifest exists in the module folder, if so add it to `viableModules`
+- If there are no viableModules then base exits
+- For every viable module check if json is valid, if not exit.
+- For every viable module sort by type into their respective `SB.modules` type. When adding the manifest to their entry in their `SB.modules` type add the main function from the main file that is listed in the modules `manifest.json`, this will also set the path in the modules entry in the respective modules type in `SB.modules`.
+`Discord.JS Init`
+- Set `SB.modules.node.discord` to the require of discord.js
+- Set `SB.client` to a new instance of a discord.js client.
+- Login the client with the token given in `SB.token.discord`.
+	- If there is an error with logging in an error is thrown.
+- When the client logged on run every module in `SB.modules.generic` and `SB.modules.bot`.
+
+`Notice`
+Most of the time, any errors after that is a modules fault.
