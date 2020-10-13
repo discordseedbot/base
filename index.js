@@ -45,7 +45,7 @@ global.SB = {
 		return new Error("Core Module has not been initialized. There might be something wrong with `/index.js` or with the core module itself.");
 	},
 	buildTools: () => {
-		return new Error("BuildMode is not enabled. Please read documentation for farther knowledge.")
+		return new Error("buildTools is not declared. Please read documentation for farther knowledge.")
 	},
 };
 //			Check if SeedBot was launched in DebugMode or buildMode,
@@ -120,7 +120,6 @@ if (!fs.existsSync("./.buildTools.js") && SB.parameters.buildMode) {
 			SB.buildTools = require("./.buildTools.js");
 		} catch(e) {
 			console.error(e);
-			process.exit(10);
 		}
 	}
 }
@@ -141,7 +140,7 @@ try {
 }
 
 //			Clear console if debugMode is not set.
-if (!SB.parameters.debugMode) {
+if (!SB.parameters.safeMode) {
 	console.clear();
 }
 function getDirectories(path) {
