@@ -90,6 +90,7 @@ try {
 	global.SB.con = conn;
 	global.SB.con.module = connmod;
 	global.SB.con.module.bot = connmodbot;
+    global.SB.log = SB.con;
 	/*
     global.SB.con = new Signale({
         disabled: false,
