@@ -251,6 +251,7 @@ if (!coreFound) {
 	process.exit(12);
 } else {
 	SB.modules.libraries = libraries;
+	SB.libraries = libraries;
 	SB.core.onLaunch();
 }
 
