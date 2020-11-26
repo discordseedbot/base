@@ -131,7 +131,7 @@ try {
 		SB.buildTools.buildIncrement()
 	}
 	SB.package = require("./package.json");
-	SB.prefrences = require("./prefrences.json");
+	SB.prefrences = require("./prefrences");
 	SB.modules.node.signale = require("signale");
 } catch (e) {
 	require("signale").error("An error Occoured when declaring [GlobalVariables]");
