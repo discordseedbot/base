@@ -16,6 +16,8 @@ SB [global JSON]
 ├ prefrences [json]
 │	└ contents of "[root]/prefrences.json"
 │
+├ libraries			[json=>arr]		aliased from SB.modules.libraries
+│
 ├ modules			[json]
 │	├ node			[json/f]		node.js modules that must be the actual npm package name, any module is allowed to add to this but not take away/overwrite.
 │	├ bot			[json=>arr]		seedbot modules that have the bot type
@@ -48,8 +50,11 @@ SB [global JSON]
 ├ package [json]
 │	└ contents of "[root]/package.json"
 │
+├ store		[json]		Used for storing temporary things.
+│
 ├ log
 │	└ [alias of "SB.con"]
+│
 ├ con
 │	├ err							[f]
 │	├ invalidCommand				[f]
