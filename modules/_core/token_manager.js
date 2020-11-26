@@ -7,12 +7,19 @@ var supportedTokenNames = [
 
 var returnJSON={};
 
-switch (SB.prefrences.core.tokenManager.tokenLocation.toLowerCase()){
+var loc = SB.prefrences.core.tokenManager.location;
+var fName = SB.prefrences.core.tokenManager.filename;
+if (SB.parameters.debugMode) {
+	loc = SB.prefrences.core.tokenManager.debug.location;
+	fName = SB.prefrences.core.tokenManager.debug.filename;
+}
+
+switch (loc){
 	case "aboveroot":
-		returnJSON = require("./../../../token.json");
+		returnJSON = require(`./../../../${fName}`);
 		break;
 	case "root":
-		returnJSON = require("./../../token.json");
+		returnJSON = require(`./../../${fName}`);
 		break;
 	default:
 		if (require("fs").exists(SB.prefrences.core.tokenManager.tokenLocation)) {

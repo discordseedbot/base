@@ -14,8 +14,12 @@ module.exports = {
 		},
 		"tokenManager": {
 			"enviromentVariable": false,
-			"tokenLocation": "aboveRoot",
-			"debugLocation": "./../canaryToken.json"
+			"location": "aboveRoot",
+			"filename": "token",
+			"debug": {
+				"location": "aboveRoot",
+				"filename": "canary",
+			}
 		},
 		"localization": {
 			"name": "SeedBot",
