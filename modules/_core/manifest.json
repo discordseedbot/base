@@ -1,6 +1,6 @@
 {
 	"name": "core",
-	"version": "0.4",
+	"version": "0.5",
 	"author": "Jyles Coad-Ward [jyles@dariox.club]",
 	"type": "library",
 	"main": "index.js"
