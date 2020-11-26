@@ -252,6 +252,7 @@ if (!coreFound) {
 } else {
 	SB.modules.libraries = libraries;
 	SB.libraries = libraries;
+	SB.store = {};
 	SB.core.onLaunch();
 }
 
