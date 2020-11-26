@@ -1,4 +1,4 @@
-{
+module.exports = {
 	"prefix": {
 		"default": "s!",
 		"dev": "s~",
@@ -14,7 +14,8 @@
 		},
 		"tokenManager": {
 			"enviromentVariable": false,
-			"tokenLocation": "aboveRoot"
+			"tokenLocation": "aboveRoot",
+			"debugLocation": "./../canaryToken.json"
 		},
 		"localization": {
 			"name": "SeedBot",
