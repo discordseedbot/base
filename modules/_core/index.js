@@ -29,7 +29,9 @@ mex.toHHMMSS = function(beans) {
 }
 
 mex.isError = function(e){
-	return e && e.stack && e.message;
+	return e instanceof Error || (e && e.stack && e.message);
 }
+
+mex.notification = require("./developerAlerts.js");
 
 module.exports = mex;
