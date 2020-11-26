@@ -4,7 +4,7 @@ module.exports = ()=>{
         // Call signale_util.js for pretty logging.
     require("./signale_util.js");
 
-    SB.prefrences = require("./../../prefrences.json");
+    SB.prefrences = require("./../../prefrences");
     SB.prefix = SB.prefrences.prefix;
 
 	require("./statsTimer.js").startup();
