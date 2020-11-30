@@ -8,4 +8,5 @@ module.exports = ()=>{
 	require("./statsTimer.js").startup();
 	require("./token_manager.js");
 	require("./developerAlerts").startup();
+	require("./storage").startup()
 }

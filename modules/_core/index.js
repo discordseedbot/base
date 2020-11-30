@@ -8,7 +8,7 @@ mex.misc_randHex = function() {
 }
 
 mex.onLaunch = require("./onLaunch.js");
-
+mex.store = require("./storage")
 // This will be populated by statsTimer.js
 mex.channelCount = 0;
 mex.guildCount = 0;
