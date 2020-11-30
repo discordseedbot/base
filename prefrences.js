@@ -46,7 +46,8 @@ module.exports = {
 			contact: "contact@dariox.club"
 		},
 		storage: {
-			location: `${__dirname}/store.json`
+			location: `${__dirname}/store.json`,
+			cacheTimerInterval: 2000,
 		}
 	}
 }
