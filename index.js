@@ -193,6 +193,8 @@ var botModulesToLoad = [];
 var genericModulesToLoad = [];
 var libraries = [];
 var temparr = [];
+SB.modules.node.discord = require("discord.js");
+global.SB.client = new SB.modules.node.discord.Client();
 
 //			Run this function for every module found in the varaible viableModules
 viableModules.forEach(async (m) => {
@@ -257,9 +259,6 @@ if (!coreFound) {
 }
 
 //			Discord.JS Login with Error Catching.
-SB.modules.node.discord = require("discord.js");
-global.SB.client = new SB.modules.node.discord.Client();
-
 setTimeout(()=>{
 	SB.client.login(SB.token.discord).catch((e)=>{
 		console.log(e);
