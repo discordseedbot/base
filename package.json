@@ -1,13 +1,13 @@
 {
 	"name": "base",
 	"license": "GPL-3.0-or-later",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"branch": "stable",
 	"description": "An Open Source General Purpose Discord Bot written in Node.JS",
 	"build": {
-		"number": 46,
-		"date": "2020_9_12",
-		"timestamp": 1602493381
+		"number": 47,
+		"date": "2020_10_30",
+		"timestamp": 1606732662
 	},
 	"main": "index.js",
 	"scripts": {
