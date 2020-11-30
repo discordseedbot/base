@@ -91,6 +91,8 @@ store.json
 └ [array]
 	└ [arrayObject]
 		├ label		-> Name of the module in manifest.json
+		├ createdAt	-> UNIX Timestamp (seconds) of when that object was created
+		├ modifiedAt-> UNIX Timestamp (seconds) of when that object was last modifiyed
 		└ data		-> Supported JSON Object Types can be set here.
 ```
 
