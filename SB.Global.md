@@ -2,6 +2,7 @@
 ## Quick Links
 - [SB](#global-sb-variable)
 - [SB.modules.example](#module-json-example)
+- [store.json Schema](#store-json-schema)
 - [Tree Creation Refrence Table](#tree-refrence-charaters)
 - [Loader Breakdown](#loader-breakdown)
 
@@ -81,6 +82,16 @@ SB [global JSON]
 	├ discord	[string]
 	├ youtube	[string]
 	└ api		[string]
+```
+
+### Store JSON Schema
+Location: ./store.json
+```
+store.json
+└ [array]
+	└ [arrayObject]
+		├ label		-> Name of the module in manifest.json
+		└ data		-> Supported JSON Object Types can be set here.
 ```
 
 ### Module JSON Example
