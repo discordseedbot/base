@@ -44,6 +44,9 @@ module.exports = {
 			name: "SeedBot",
 			website: "https://seedbot.xyz",
 			contact: "contact@dariox.club"
+		},
+		storage: {
+			location: `${__dirname}/store.json`
 		}
 	}
 }
