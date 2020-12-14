@@ -8,6 +8,9 @@ module.exports = {
 		youtube: "s!yt"
 	},
 	core: {
+		admins: [
+			'230485481773596672', '@seed#0001'
+		],
 		stats: {
 			timer: 600,
 			loginRetryTimer: 1
