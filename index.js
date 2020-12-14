@@ -132,6 +132,7 @@ try {
 	}
 	SB.package = require("./package.json");
 	SB.prefrences = require("./prefrences");
+	SB.dist = require("./seedbot.config.json") || {};
 	SB.modules.node.signale = require("signale");
 } catch (e) {
 	require("signale").error("An error Occoured when declaring [GlobalVariables]");
