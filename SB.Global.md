@@ -51,6 +51,9 @@ SB [global JSON]
 ├ package [json]
 │	└ contents of "[root]/package.json"
 │
+├ dist [json]
+│	└ contents of "[root]/seedbot.config.json"
+│
 ├ store		[json]		Used for storing temporary things.
 │
 ├ log
@@ -82,6 +85,39 @@ SB [global JSON]
 	├ discord	[string]
 	├ youtube	[string]
 	└ api		[string]
+```
+
+### SeedBot Config Schema
+Location: ./seedbot.config.json
+```json
+seedbot.config.json
+│
+├ name				[string]
+│
+├ version			[string]
+│
+├ build				[json]
+│	├ number		[int]
+│	├ date			[string]
+│	└ timestamp		[int]
+│
+├ repository 		[json]	exact same as the repository schema in package.json
+│	├ type			[string]
+│	└ url			[string]
+│
+├ bugs
+│	└ url			[string]
+│
+├ contributers		[json->array]
+│	└ 				[string] example: "Name [email] (website)"
+│
+└ base
+	├ version		[string]
+	├ build			[json]
+	│	├ number	[int]
+	│	├ date		[string]
+	│	└ timestamp	[int]
+	└ dependencies	[json]	exact same schema as the node.js package.json dependencies
 ```
 
 ### Store JSON Schema
