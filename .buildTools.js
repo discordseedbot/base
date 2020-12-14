@@ -1,18 +1,33 @@
+function generateBuildOBJ(buildOBJ) {
+	buildOBJ.number++;
+	var curDate = new Date();
+	buildOBJ.date = `${curDate.getFullYear()}_${curDate.getMonth()}_${curDate.getDate()}`;
+	buildOBJ.timestamp = Math.round(curDate.valueOf()/1000);
+}
+
 module.exports.buildIncrement = async function() {
 	try {
 		const fs = require("fs");
 		const ljf = require('load-json-file')
 
+		if (fs.existsSync("seedbot.config.json")) {
+			const sbjson = await ljf("seedbot.config.json")
+			sbjson.build = generateBuildOBJ(sbjson.build)
+			if (sbjson.name.toLowerCase() == 'base') {
+				sbjson.base.build = generateBuildOBJ(sbjson.base.build)
+			}
+			fs.writeFile("./seedbot.config.json",JSON.stringify(sbjson,null,'\t'), function writeJSON(err) {
+				if (err) throw err;
+				console.debug("[buildTools] Incremented Build Number in seedbot.config.json");
+			})
+		}
 
-	    const file = await ljf("package.json");
-	    file.build.number++;
-	    var curDate = new Date();
-	    file.build.date = `${curDate.getFullYear()}_${curDate.getMonth()}_${curDate.getDate()}`;
-	    file.build.timestamp = Math.round(curDate.valueOf()/1000);
-
-	    fs.writeFile("./package.json", JSON.stringify(file,null,"\t"), function writeJSON(err) {
+		// package.json
+	    const pkjson = await ljf("package.json");
+		pkjson.build = generateBuildOBJ(file.build);
+	    fs.writeFile("./package.json", JSON.stringify(pkjson,null,"\t"), function writeJSON(err) {
 	        if (err) throw err;
-	        console.debug("[buildTools] Incremented Build Number");
+	        console.debug("[buildTools] Incremented Build Number in package.json");
 	    });
 	} catch (e) {
 		console.error(e);
