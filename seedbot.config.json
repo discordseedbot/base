@@ -1,5 +1,6 @@
 {
 	"name": "base",
+	"license": "GPL-3.0-or-later",
 	"version": "0.0.1",
 	"build": {
 		"number": 47,
@@ -18,10 +19,15 @@
 	], 
 	"base": {
 		"version": "0.6.0",
+		"license": "GPL-3.0-or-later",
 		"build": {
 			"number": 47,
 			"date": "2020_10_30",
 			"timestamp": 1606732662
+		},
+		"repository": {
+			"type": "git",
+			"url": "git+https://github.com/discordseedbot/base.git"
 		},
 		"dependencies": {	
 			"discord.js": "^12.5.1",
