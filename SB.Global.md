@@ -15,7 +15,7 @@ SB [global JSON]
 │
 │
 ├ prefrences [json]
-│	└ contents of "[root]/prefrences.json"
+│	└ contents of "[root]/prefrences.(js|json)"
 │
 ├ libraries			[json=>arr]		aliased from SB.modules.libraries
 │
@@ -89,7 +89,7 @@ SB [global JSON]
 
 ### SeedBot Config Schema
 Location: ./seedbot.config.json
-```json
+```
 seedbot.config.json
 │
 ├ name				[string]
@@ -113,6 +113,9 @@ seedbot.config.json
 │
 └ base
 	├ version		[string]
+	├ repository 		[json]	exact same as the repository schema in package.json
+	│	├ type			[string]
+	│	└ url			[string]
 	├ build			[json]
 	│	├ number	[int]
 	│	├ date		[string]
