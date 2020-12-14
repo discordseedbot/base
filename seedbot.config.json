@@ -1,0 +1,37 @@
+{
+	"name": "base",
+	"version": "0.0.1",
+	"build": {
+		"number": 47,
+		"date": "2020_10_30",
+		"timestamp": 1606732662
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/discordseedbot/base.git"
+	},
+	"bugs": {
+		"url": "https://github.com/discordseedbot/base/issues"
+	},
+	"contributers": [
+		"Jyles Coad-Ward (https://jyles.club)"
+	], 
+	"base": {
+		"version": "0.6.0",
+		"build": {
+			"number": 47,
+			"date": "2020_10_30",
+			"timestamp": 1606732662
+		},
+		"dependencies": {	
+			"discord.js": "^12.5.1",
+			"fs": "0.0.1-security",
+			"http": "0.0.1-security",
+			"https": "^1.0.0",
+			"inquirer": "^7.2.0",
+			"load-json-file": "^6.2.0",
+			"path": "^0.12.7",
+			"signale": "^1.4.0"
+		}
+	}
+}
