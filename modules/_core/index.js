@@ -6,14 +6,14 @@ module.exports.misc_randHex = function() {
 }
 
 module.exports.onLaunch = require("./onLaunch.js");
-module.exports.store = require("./storage")
+module.exports.store = require("./storage");
+module.exports.stats = require("./statsTimer.js");
 
 // This will be populated by statsTimer.js
 module.exports.channelCount = 0;
 module.exports.guildCount = 0;
 module.exports.userCount = 0;
 
-module.exports.stats = require("./statsTimer.js");
 
 // i have no idea what this does, it's just copied from stackoverflow idk.
 module.exports.toHHMMSS = function(inputString) {
