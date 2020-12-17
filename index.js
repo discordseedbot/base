@@ -70,19 +70,24 @@ function paramChange(bMB,dMB,sMB) {
 		default: break;
 	}
 }
-if(process.argv.indexOf("--debug") > -1){
-	paramChange(null,1,1)
+function populateParameters() {
+	if(process.argv.indexOf("--debug") > -1){
+		paramChange(null,1,1)
+	}
+	if(process.argv.indexOf("--inspect") > -1) {
+		paramChange(null,1,1)
+		SB.parameters.inspect = true;
+	}
+	if(process.argv.indexOf("--buildMode") > -1){
+		paramChange(1,1,1)
+	}
+	if(process.argv.indexOf("--safe") > -1){
+		paramChange(null,null,1);
+	}
 }
-if(process.argv.indexOf("--inspect") > -1) {
-	paramChange(null,1,1)
-	SB.parameters.inspect = true;
-}
-if(process.argv.indexOf("--buildMode") > -1){
-	paramChange(1,1,1)
-}
-if(process.argv.indexOf("--safe") > -1){
-	paramChange(null,null,1);
-}
+populateParameters();
+
+// Custom logging output if SB.parameters.safeMode is false.
 if (!SB.parameters.safeMode) {
 	if (!fs.existsSync("logs")){ fs.mkdirSync("logs"); }
 	var botStartTime = Math.floor(+new Date() / 1000);
@@ -130,7 +135,9 @@ if (!SB.parameters.safeMode) {
 		}
 	}
 }
-//			If buildTools was not found then we will disable it.
+// If the buildTools javascript file is found and SB.parameters.buildMode
+//		is set to true we'll increment the build numbers and
+//		change the timestamp/date.
 if (!fs.existsSync("./.buildTools.js") && SB.parameters.buildMode) {
 	global.SB.parameters.buildMode 	= false;
 	throw new Error("BuildTools could not be found. Disabling.");
@@ -145,7 +152,7 @@ if (!fs.existsSync("./.buildTools.js") && SB.parameters.buildMode) {
 	}
 }
 
-//			Declare Global Static Varaibles and other (sorta) pre-launch stuff.
+// Sorta pre-login setup, defining stuff that is required for modules to work.
 try {
 	require('events').EventEmitter.defaultMaxListeners = 255;
 	if (SB.parameters.buildMode) {
@@ -161,7 +168,7 @@ try {
 	process.exit(11);
 }
 
-//			Clear console if safeMode is false.
+// Clear console if safeMode is false
 if (!SB.parameters.safeMode) {
 	console.clear();
 }
@@ -171,7 +178,7 @@ function getDirectories(path) {
   });
 }
 
-//			Check each of the directories in "modules/" if they have a "manifest.json" file.
+// Check if each module folder has a manifest.
 var moduleArray = getDirectories("modules/");
 var viableModules = [];
 moduleArray.forEach(async (m) => {
@@ -183,13 +190,13 @@ moduleArray.forEach(async (m) => {
 	}
 })
 
-//			If there are no valid modules quit process.
+// Quit of no valid modules were found.
 if (viableModules.length < 1) {
 	signale.log("[modman] No valid modules found.");
 	process.exit(1);
 }
 
-//			Check if manifest for the module is valid
+// Check manifest of all detected modules that have a manifest.
 viableModules.forEach(async (m) => {
 	try {
 		var json = require(`./${m}/manifest.json`).name;
@@ -283,21 +290,16 @@ if (!coreFound) {
 //			Discord.JS Login with Error Catching.
 setTimeout(()=>{
 	SB.client.login(SB.token.discord).catch((e)=>{
-		console.log(e);
 		switch(e.code) {
 			case "SELF_SIGNED_CERT_IN_CHAIN":
 				SB.modules.node.signale.error("Self-Signed certificate found in chain.");
-				process.exit(1);
 				break;
 			case "TOKEN_INVALID":
 				SB.modules.node.signale.error("Discord Token is Invalid.")
-				process.exit(1);
-				break;
-			default:
-				console.log(e);
-				process.exit(1);
 				break;
 		}
+		console.log(e);
+		process.exit(1);
 	});
 
 	//			From this point all errors should be from the modules.
