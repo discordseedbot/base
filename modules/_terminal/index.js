@@ -2,7 +2,7 @@ var inquirer = require("inquirer");
 
 module.exports = function() {
 
-    if(SB.parameters.debugMode){
+    if((SB.parameters.debugMode && SB.parameters.inspect == false)){
         SB.client.on('ready', () => {
             SB.con.warmingUp("Waiting a tad bit before launching the Developer Console.");
             setTimeout(function() {
