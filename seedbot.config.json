@@ -3,9 +3,9 @@
 	"license": "GPL-3.0-or-later",
 	"version": "0.0.1",
 	"build": {
-		"number": 49,
+		"number": 50,
 		"date": "2020_11_17",
-		"timestamp": 1608186606
+		"timestamp": 1608188097
 	},
 	"repository": {
 		"type": "git",
@@ -21,9 +21,9 @@
 		"version": "0.6.0",
 		"license": "GPL-3.0-or-later",
 		"build": {
-			"number": 49,
+			"number": 50,
 			"date": "2020_11_17",
-			"timestamp": 1608186606
+			"timestamp": 1608188097
 		},
 		"repository": {
 			"type": "git",
