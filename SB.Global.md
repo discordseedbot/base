@@ -11,6 +11,8 @@
 SB [global JSON]
 ├ parameters 		[json]
 │	├ buildMode		[bolean]
+│	├ safeMode		[bolean]
+│	├ inspect		[bolean]	if 'inspect' was found in 'process.argv'
 │	└ DebugMode		[bolean]
 │
 │
