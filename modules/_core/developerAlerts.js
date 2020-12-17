@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const { constants } = require("fs");
 
 function msgGen(embed,content,title,message) {
 	var tEmbed = embed
