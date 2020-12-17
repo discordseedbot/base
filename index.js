@@ -50,17 +50,41 @@ global.SB = {
 };
 //			Check if SeedBot was launched in DebugMode or buildMode,
 //				if it was then we set the debugMode parameter.
+function paramChange(bMB,dMB,sMB) {
+	switch (bMB) {
+		case 0: case 1:
+			SB.parameters.buildMode = Boolean(bMB);
+			break;
+		default:
+			return;
+	}
+	switch (dMB) {
+		case 0: case 1:
+			SB.parameters.debugMode = Boolean(dMB);
+			break;
+		default:
+			return;
+	}
+	switch (sMB) {
+		case 0: case 1:
+			SB.parameters.safeMode = Boolean(sMB);
+			break;
+		default:
+			return;
+	}
+}
 if(process.argv.indexOf("--debug") > -1){
-	global.SB.parameters.debugMode 	= true;
-	global.SB.parameters.safeMode 	= true;
+	paramChange(null,1,1)
+}
+if(process.argv.indexOf("--inspect") > -1) {
+	paramChange(null,1,1)
+	SB.parameters.inspect = true;
 }
 if(process.argv.indexOf("--buildMode") > -1){
-	global.SB.parameters.debugMode 	= true;
-	global.SB.parameters.buildMode 	= true;
-	global.SB.parameters.safeMode 	= true;
+	paramChange(1,1,1)
 }
 if(process.argv.indexOf("--safe") > -1){
-	global.SB.parameters.safeMode 	= true;
+	paramChange(null,null,1);
 }
 if (!SB.parameters.safeMode) {
 	if (!fs.existsSync("logs")){ fs.mkdirSync("logs"); }
@@ -140,7 +164,7 @@ try {
 	process.exit(11);
 }
 
-//			Clear console if debugMode is not set.
+//			Clear console if safeMode is false.
 if (!SB.parameters.safeMode) {
 	console.clear();
 }
