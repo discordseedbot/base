@@ -6,11 +6,19 @@ var supportedTokenNames = [
 ]
 
 var returnJSON={};
-
+function envCheck() {
+	if (process.env.hasOwnProperty("SB_enviromentTokens") && (process.env['SB_enviromentTokens'] != undefined && process.env['SB_enviromentTokens'].toLowerCase() == "yes")) {
+		return true;
+	}
+	if (process.env._ != undefined && process.env._.indexOf("SB_enviromentTokens") > -1 && process.env._.indexOf("SB_enviromentTokens").toLowerCase() === "yes") {
+		return true;
+	}
+	return false;
+}
 module.exports = ()=>{
 	
 	// Check if the user wants enviroment variables
-	if (process.env._.indexOf("SB_enviromentTokens") !== -1 && process.env._.indexOf("SB_enviromentTokens").toLowerCase() === "yes") {
+	if (envCheck()) {
 		global.SB.token = {
 			"discord": process.env.SBToken_DISCORD,
 			"youtube": process.env.SBToken_YOUTUBE,
