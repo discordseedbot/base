@@ -3,6 +3,7 @@ function generateBuildOBJ(buildOBJ) {
 	var curDate = new Date();
 	buildOBJ.date = `${curDate.getFullYear()}_${curDate.getMonth()}_${curDate.getDate()}`;
 	buildOBJ.timestamp = Math.round(curDate.valueOf()/1000);
+	return buildOBJ;
 }
 
 module.exports.buildIncrement = async function() {
@@ -24,7 +25,7 @@ module.exports.buildIncrement = async function() {
 
 		// package.json
 	    const pkjson = await ljf("package.json");
-		pkjson.build = generateBuildOBJ(file.build);
+		pkjson.build = generateBuildOBJ(pkjson.build);
 	    fs.writeFile("./package.json", JSON.stringify(pkjson,null,"\t"), function writeJSON(err) {
 	        if (err) throw err;
 	        console.debug("[buildTools] Incremented Build Number in package.json");
