@@ -1,22 +1,20 @@
-var mex = {}
-
-mex.tokenManager = function() {
+module.exports.tokenManager = function() {
 	return require("./token_manager.js");
 }
-mex.misc_randHex = function() {
+module.exports.misc_randHex = function() {
 	return Math.floor(Math.random()*16777215).toString(16);
 }
 
-mex.onLaunch = require("./onLaunch.js");
-mex.store = require("./storage")
+module.exports.onLaunch = require("./onLaunch.js");
+module.exports.store = require("./storage")
 // This will be populated by statsTimer.js
-mex.channelCount = 0;
-mex.guildCount = 0;
-mex.userCount = 0;
+module.exports.channelCount = 0;
+module.exports.guildCount = 0;
+module.exports.userCount = 0;
 
-mex.stats = require("./statsTimer.js");
+module.exports.stats = require("./statsTimer.js");
 
-mex.toHHMMSS = function(beans) {
+module.exports.toHHMMSS = function(beans) {
 	var sec_num = parseInt(beans, 10); // don't forget the second param
 	var hours   = Math.floor(sec_num / 3600);
 	var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
@@ -28,10 +26,8 @@ mex.toHHMMSS = function(beans) {
 	return hours+':'+minutes+':'+seconds;
 }
 
-mex.isError = function(e){
+module.exports.isError = function(e){
 	return e instanceof Error || (e && e.stack && e.message);
 }
 
-mex.notification = require("./developerAlerts.js");
-
-module.exports = mex;
+module.exports.notification = require("./developerAlerts.js");
