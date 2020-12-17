@@ -55,22 +55,19 @@ function paramChange(bMB,dMB,sMB) {
 		case 0: case 1:
 			SB.parameters.buildMode = Boolean(bMB);
 			break;
-		default:
-			return;
+		default: break;
 	}
 	switch (dMB) {
 		case 0: case 1:
 			SB.parameters.debugMode = Boolean(dMB);
 			break;
-		default:
-			return;
+		default: break;
 	}
 	switch (sMB) {
 		case 0: case 1:
 			SB.parameters.safeMode = Boolean(sMB);
 			break;
-		default:
-			return;
+		default: break;
 	}
 }
 if(process.argv.indexOf("--debug") > -1){
