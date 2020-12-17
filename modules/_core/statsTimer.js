@@ -1,24 +1,49 @@
-mex = {}
-// mex is SB.core.stats
+function containsObject(obj, list) {
+	var i;
+	for (i = 0; i < list.length; i++) {
+		if (list[i] === obj) {
+			return true;
+		}
+	}
 
-mex.update = {};
+	return false;
+}
 
-mex.update = () => {
-	// If you don't understand what this function does, please leave.
-	let retval={"channelCount":0,"guildCount":0,"memberCount":0};
+module.exports.update = () => {
+	let retval={
+		"channelCount":0,
+		"guildCount":0,
+		"memberCount":0,
+		"users": [],
+		"guilds": [],
+		"channels": [],
+	};
+
+	// Update Count
 	SB.client.guilds.cache.forEach(m => {
-	  retval.memberCount+=m.memberCount
-	  retval.guildCount+=1
-	  retval.channelCount+=m.channels.cache.size
+		retval.memberCount+=m.memberCount
+		retval.guildCount+=1
+		retval.channelCount+=m.channels.cache.size;
+		retval.guilds.push(m);
+		m.members.cache.array().forEach((mA)=> {
+			if (!containsObject(retval.users,mA)) {
+				retval.users.push(mA)
+			}
+		})
+		m.channels.cache.array().forEach((c)=>{
+			if(!containsObject(retval.channels,c)) {
+				retval.channels.push(c)
+			}
+		})
 	})
 	return retval;
 }
 
-mex.update.force = ()=>{
-	SB.core.stats = mex.update();
+module.exports.update.force = ()=>{
+	SB.core.stats = module.exports.update();
 }
 
-mex.startup = ()=>{
+module.exports.startup = ()=>{
 	SB.core.stats = {};
 	
 	setTimeout(() => {
@@ -28,22 +53,22 @@ mex.startup = ()=>{
 			// Call timerLoop when discord.js has logged in.
 			SB.client.on('ready',()=>{
 				console.debug("[statsTimer] Timer Loop Called");
-				mex.timerLoop();
+				module.exports.timerLoop();
 			})
 		}
 	},SB.prefrences.core.stats.loginRetryTimer*1000)
 }
 
-mex.timerLoop = ()=>{
+module.exports.timerLoop = ()=>{
 	if (SB.prefrences.core.stats === undefined) {
 		throw "Stastics Object is not defined in prefrences.";
 	}
 	if (SB.prefrences.core.stats.timer === undefined) {
 		throw "Timer Object in SB.core.stats does not exist";
 	}
-	SB.core.stats = mex.update();
+	SB.core.stats = module.exports.update();
 	setTimeout(() => {
-		var statUpdate = mex.update();
+		var statUpdate = module.exports.update();
 		SB.core.stats = statUpdate;
 		SB.core.channelCount	= statUpdate.channelCount;
 		SB.core.guildCount		= statUpdate.guildCount;
@@ -51,8 +76,8 @@ mex.timerLoop = ()=>{
 	},SB.prefrences.core.stats.timer*1000)
 }
 
-mex.channelCount = 0;
-mex.guildCount = 0;
-mex.userCount = 0;
 
-module.exports = mex;
+module.exports.channelCount = 0;
+module.exports.guildCount = 0;
+module.exports.userCount = 0;
+module.exports.users = [];

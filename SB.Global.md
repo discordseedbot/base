@@ -42,8 +42,11 @@ SB [global JSON]
 │		├ channelCount	[int]
 │		├ guildCount	[int]
 │		├ userCount		[int]
+│		├ users			[arr]	each object of users, channels and guilds is the respsective
+│		├ channels		[arr]		object of each thing, just use the eval command to teach
+│		├ guilds		[arr]		yourself. or just look in modules/_core/statsTimer.js
 │		├ update		[json/f]
-│			└ force		[f]
+│		│	└ force		[f]
 │		├ startup		[f]
 │		└ timerLoop		[f]
 │
