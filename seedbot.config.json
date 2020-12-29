@@ -18,7 +18,7 @@
 		"Jyles Coad-Ward (https://jyles.club)"
 	],
 	"base": {
-		"version": "0.6.0",
+		"version": "0.0.6",
 		"license": "GPL-3.0-or-later",
 		"build": {
 			"number": 50,
