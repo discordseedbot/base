@@ -155,3 +155,14 @@ module.exports.developerNotif = (content)=>{
 module.exports.userspaceNotif = (content)=>{
 	module.exports(content,'user',message)
 }
+module.exports.developerUnauthAccess = (message) => {
+	let developerUnauthAccessMSG = new Discord.MessageEmbed()
+		.setColor(Math.floor(Math.random()*16777215).toString(16))
+		.setTitle("Invalid User tried to access a Developer Command")
+		.setTimestamp()
+		.addField("Guild Info",`ID: ${message.member.guild.id}\nName: ${message.member.guild.name}`)
+		.addField("User Info",`ID: ${message.author.id}\nUName: @${message.author.username}#${message.author.discriminator}`)
+		.addField("Message Info", "Content: `"+message.content+"`\n"+`Channel Name: ${message.channel.name}\nChannel ID: ${message.channel.id}`)
+		.setAuthor(message.contents)
+	SB.client.channels.get(errorDataJSON.developer.unauthAccess).send(developerUnauthAccessMSG);
+}
