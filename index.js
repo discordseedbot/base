@@ -169,7 +169,7 @@ try {
 }
 
 // Clear console if safeMode is false
-if (!SB.parameters.safeMode) {
+if (!SB.parameters.debugMode || !SB.parameters.safeMode) {
 	console.clear();
 }
 function getDirectories(path) {
