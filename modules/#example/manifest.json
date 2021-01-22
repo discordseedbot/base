@@ -4,5 +4,8 @@
 	"author": "Jyles Coad-Ward [jyles@dariox.club]",
 	"type": "botmod",
 	"main": "index.js",
-	"issues": "[issues URL goes here]"
+	"issues": "[issues URL goes here]",
+	"dependencies": {
+		"base": ">0.0.6"
+	}
 }
