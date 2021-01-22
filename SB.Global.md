@@ -143,14 +143,16 @@ store.json
 ### Module JSON Example
 ```
 Module JSON
-├ name		[string]			module shortname
-├ version	[string]			version of module (major.minor.patch)
-├ author	[string]			module autor (e.g "Name [username@domain.tld]" or "Group [username@domain.tld]")
-├ type		[string]			module type can be [generic, bot, library]
-├ main		[string]			name of the main (index) file
-├ location	[string]			location of the module folder from root
-├ storage	[any]				can be any type, data here is controlled by the module developer and does not have a standard
-└ f			[function]			function aliased from the mainfile module.export function
+├ name			[string]			module shortname
+├ version		[string]			version of module (major.minor.patch)
+├ author		[string]			module autor (e.g "Name [username@domain.tld]" or "Group [username@domain.tld]")
+├ type			[string]			module type can be [generic, bot, library]
+├ main			[string]			name of the main (index) file
+├ location		[string]			location of the module folder from root
+├ issues		[string]			issues url
+├ dependencies	[json]				same schema as npm dependencies package.json
+├ storage		[any]				can be any type, data here is controlled by the module developer and does not have a standard
+└ f				[function]			function aliased from the mainfile module.export function
 ```
 
 ### Tree Refrence Charaters
