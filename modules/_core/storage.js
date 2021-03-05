@@ -61,12 +61,13 @@ module.exports.set = (g_label,g_data) => {
 			modifiedAt: createTimestamp,
 		})
 	}
-	fs.writeFile(SB.prefrences.core.storage.location,JSON.stringify(dataToSet,null,'\t'),(e)=>{
-		if (e) {
-			throw error("Error with writing file",e);
-		} else {
-			console.log("Wrote Contents.")
-		}
+	return new Promise((resolve,reject)=>{
+		fs.writeFile(SB.prefrences.core.storage.location,JSON.stringify(dataToSet,null,'\t'),(e)=>{
+			if (e) {
+				reject(e);
+			} else {
+				resolve();
+			}
+		})
 	})
-	return;
 }
