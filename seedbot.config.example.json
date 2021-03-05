@@ -1,0 +1,43 @@
+{
+	"name": "BotName",
+	"license": "License",
+	"version": "0.0.1",
+	"build": {
+		"number": 0,
+		"date": "1970_01_01",
+		"timestamp": 0
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://domain/group/repo.git"
+	},
+	"bugs": {
+		"url": "https://domain/group/repo/issues"
+	},
+	"contributers": [
+		"name (website) [e-mail]"
+	],
+	"base": {
+		"version": "0.0.6",
+		"license": "GPL-3.0-or-later",
+		"build": {
+			"number": 51,
+			"date": "2021_2_5",
+			"timestamp": 1614922801
+		},
+		"repository": {
+			"type": "git",
+			"url": "git+https://github.com/discordseedbot/base.git"
+		},
+		"dependencies": {
+			"discord.js": "^12.5.1",
+			"fs": "0.0.1-security",
+			"http": "0.0.1-security",
+			"https": "^1.0.0",
+			"inquirer": "^7.2.0",
+			"load-json-file": "^6.2.0",
+			"path": "^0.12.7",
+			"signale": "^1.4.0"
+		}
+	}
+}
