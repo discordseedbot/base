@@ -1,11 +1,11 @@
 {
 	"name": "base",
 	"license": "GPL-3.0-or-later",
-	"version": "0.0.1",
+	"version": "0.0.6",
 	"build": {
-		"number": 50,
-		"date": "2020_11_17",
-		"timestamp": 1608188097
+		"number": 52,
+		"date": "2021_2_5",
+		"timestamp": 1614923433
 	},
 	"repository": {
 		"type": "git",
@@ -15,15 +15,20 @@
 		"url": "https://github.com/discordseedbot/base/issues"
 	},
 	"contributers": [
-		"Jyles Coad-Ward (https://jyles.club)"
+		{
+			"name": "Jyles Coad-Ward",
+			"contact": "jyles@dariox.club",
+			"homepage": "https://jyles.club",
+			"position": "Maintainer/Owner"
+		}
 	],
 	"base": {
 		"version": "0.0.6",
 		"license": "GPL-3.0-or-later",
 		"build": {
-			"number": 50,
-			"date": "2020_11_17",
-			"timestamp": 1608188097
+			"number": 52,
+			"date": "2021_2_5",
+			"timestamp": 1614923433
 		},
 		"repository": {
 			"type": "git",
