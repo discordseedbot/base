@@ -5,9 +5,9 @@
 	"branch": "stable",
 	"description": "An Open Source General Purpose Discord Bot written in Node.JS",
 	"build": {
-		"number": 50,
-		"date": "2020_11_17",
-		"timestamp": 1608188097
+		"number": 52,
+		"date": "2021_2_5",
+		"timestamp": 1614923433
 	},
 	"main": "index.js",
 	"scripts": {
@@ -25,12 +25,7 @@
 	"homepage": "https://seedbot.xyz",
 	"author": "SeedBot Contributers [seedbot@cock.li]",
 	"contributors": [
-		{
-			"name": "Jyles Coad-Ward",
-			"contact": "jyles@dariox.club",
-			"homepage": "https://jyles.club",
-			"position": "Maintainer/Owner"
-		}
+		"Jyles Coad-Ward [jyles@dariox.club] (https://jyles.club)"
 	],
 	"ownerID": [
 		"230485481773596672"
