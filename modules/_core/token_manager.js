@@ -2,7 +2,9 @@
 var supportedTokenNames = [
 	"discord",
 	"youtube",
-	"api"
+	"api",
+	"osu",
+	"spotify"
 ]
 
 var returnJSON={};
@@ -19,11 +21,11 @@ module.exports = ()=>{
 	
 	// Check if the user wants enviroment variables
 	if (envCheck()) {
-		global.SB.token = {
-			"discord": process.env.SBToken_DISCORD,
-			"youtube": process.env.SBToken_YOUTUBE,
-			"api": process.env.SBToken_API,
-		};
+		var tempToken = {};
+		SB.modules.toolbox.asyncForEach(supportedTokenNames,(t)=>{
+			tempToken[t] = process.env[`SBToken_${t.toUpperCase()}`];
+		})
+		global.SB.token = tempToken;
 		return;
 	}
 
