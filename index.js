@@ -278,7 +278,6 @@ libraries.forEach((m) => {
 })
 if (!coreFound) {
 	SB.modules.node.signale.error("Core Library was not found. Process Halted.");
-	delete(coreFound);
 	process.exit(12);
 } else {
 	SB.modules.libraries = libraries;
