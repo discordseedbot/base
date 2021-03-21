@@ -1,0 +1,14 @@
+{
+	"name": "core",
+	"label": "Core Library",
+	"version": "0.0.8",
+	"build": 
+	{
+		"id": 1,
+		"timestamp": 0
+	},
+	"contributers":
+	{
+		"Jyles Coad-Ward [jyles@dariox.club] (https://jyles.club)"
+	}
+}

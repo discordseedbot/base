@@ -1,7 +1,7 @@
 {
 	"name": "base",
 	"license": "GPL-3.0-or-later",
-	"version": "0.0.6",
+	"version": "0.1.0",
 	"branch": "stable",
 	"description": "An Open Source General Purpose Discord Bot written in Node.JS",
 	"build": {
@@ -9,11 +9,13 @@
 		"date": "2021_2_5",
 		"timestamp": 1614923433
 	},
-	"main": "index.js",
+	"main": "./core/entry.js",
 	"scripts": {
 		"start": "node .",
 		"debug": "node . --debug",
-		"build": "node . --buildMode"
+		"build": "node . --build",
+		"test": "node .",
+		"generateJSDoc": "jsdoc -c ./jsdoc.json"
 	},
 	"repository": {
 		"type": "git",
@@ -38,6 +40,11 @@
 		"inquirer": "^7.2.0",
 		"load-json-file": "^6.2.0",
 		"path": "^0.12.7",
-		"signale": "^1.4.0"
+		"signale": "^1.4.0",
+		"tinytoolbox": "0.0.7"
+	},
+	"devDependencies": {
+		"minami": "^1.2.3",
+		"tui-jsdoc-template": "^1.2.2"
 	}
 }

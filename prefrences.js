@@ -1,4 +1,5 @@
-module.exports = {
+module.exports = 
+{
 	prefix: {
 		default: "s!",
 		dev: "s~",
@@ -7,50 +8,52 @@ module.exports = {
 		dmoj: "s!dmoj",
 		youtube: "s!yt"
 	},
-	core: {
-		admins: [
-			'230485481773596672', '@seed#0001'
-		],
-		stats: {
-			timer: 600,
-			loginRetryTimer: 1
-		},
-		tokenManager: {
-			enviromentVariable: false,
-			location: "aboveRoot",
-			filename: "token",
-			debug: {
-				location: "aboveRoot",
-				filename: "canary",
-			}
-		},
-		developerAlerts: {
-			enable: true,
-			override: {
-				error: true
-			},
-			developer: {
-				error: "720187904705691689",
-				notifications: "720187664120152114",
-				unauthAccess: "720566055445069864"
-			},
-			userspace: {
-				error: "72018793426282a0955",
-				notifications: "720187870933024829"
-			},
-			default: {
-				error: "781453506372304996",
-				notifications: "781453582263255041"
-			}
-		},
-		localization: {
-			name: "SeedBot",
-			website: "https://seedbot.xyz",
-			contact: "contact@dariox.club"
-		},
-		storage: {
-			location: `${__dirname}/store.json`,
-			cacheTimerInterval: 2000,
+	token:
+	{
+		enviroment: false,
+		directory: "./secret/",
+		filename: "token.json",
+		developer:
+		{
+			directory: "./secret/",
+			filename: "token.dev.json",
 		}
+	},
+	admin: [
+		"488187472514252811"
+	],
+	cache:
+	{
+		interval: 600, //Measured in milliseconds
+	},
+	discord:
+	{
+		loginRetryAttempts: 2,
+		attemptTimeout: 15000 // Measures in milliseconds
+	},
+	alert:
+	{
+		enable: true,
+		developer:
+		{
+			error: "0",
+			notification: "0",
+			unauth: "0",
+		},
+		userspace:
+		{
+			error: "0",
+			notification: "0",
+		},
+		default:
+		{
+			error: "0",
+			notification: "0",
+		}
+	},
+	localization: {
+		name: "tetrabot",
+		website: "https://seedbot.xyz?brand=tetra",
+		contact: "tetrabot@dariox.club"
 	}
 }
