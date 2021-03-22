@@ -1,10 +1,10 @@
 /**
  * @title Token
- * @module corelib-token
+ * @module CoreToken
  */
 
 /**
- * @typedef module:corelib-token.tokenStorage
+ * @typedef module:CoreToken.storage
  * @property {string} discord - Discord Client Token
  * @property {string} youtube - Youtube API v3 Token
  * @property {string} api - Custom Statistics API Token
