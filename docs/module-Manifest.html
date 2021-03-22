@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Global - Documentation</title>
+    <title>Manifest - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">Manifest</h1>
     
 
     
@@ -41,9 +41,8 @@
 
 <header>
     
-        <h2>
         
-        </h2>
+            
         
     
 </header>
@@ -52,74 +51,14 @@
     <div class="container-overview">
     
         
-
+            <div class="description">Module Manifest</div>
         
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
 
         
             
-<div class="section-members">
-<h4 class="name" id="SB"><span class="type-signature"></span>SB<span class="type-signature"></span></h4>
+<div class="section-method">
 
 
-
-
-<div class="description">
-    Global SB Module
-</div>
 
 
 
@@ -151,13 +90,38 @@
 
         <tr>
             
-                <td class="name"><code>prefrences</code></td>
+                <td class="name"><code>name</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code><a href="module-Prefrences.html#.CorePrefrences">module:Prefrences.CorePrefrences</a></code></span>
+<span class="param-type"><code>String</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Alphanumberic Case Sensitive String</td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>String</code></span>
 
 
             
@@ -176,38 +140,13 @@
 
         <tr>
             
-                <td class="name"><code>parameters</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>module:CoreLibrary.LaunchParameters</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Launch Parameters</td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>modules</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="module-CoreModule.html">module:CoreModule</a></code></span>
+<span class="param-type"><code><a href="module-Manifest.html#.Type">module:Manifest.Type</a></code></span>
 
 
             
@@ -226,13 +165,13 @@
 
         <tr>
             
-                <td class="name"><code>storage</code></td>
+                <td class="name"><code>author</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>module:StorageConnection</code></span>
+<span class="param-type"><code><a href="module-Manifest.html#.Author">module:Manifest.Author</a></code></span>
 
 
             
@@ -251,13 +190,13 @@
 
         <tr>
             
-                <td class="name"><code>token</code></td>
+                <td class="name"><code>contributers</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>module:CoreToken.tokenStorage</code></span>
+<span class="param-type"><code>Array.&lt;<a href="module-Manifest.html#.Author">module:Manifest.Author</a>></code></span>
 
 
             
@@ -276,13 +215,13 @@
 
         <tr>
             
-                <td class="name"><code>core</code></td>
+                <td class="name"><code>contact</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code><a href="module-CoreLibrary.html">module:CoreLibrary</a></code></span>
+<span class="param-type"><code>String</code></span>
 
 
             
@@ -292,7 +231,57 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Contact E-Mail Address</td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>homepage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>String</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">HTTP(S) Address</td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>main</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Default; <code>index.js</code></td>
         </tr>
 
         
@@ -333,7 +322,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="entry.js.html">entry.js</a>, <a href="entry.js.html#line4">line 4</a>
+        <a href="typedef_manifest.js.html">typedef/manifest.js</a>, <a href="typedef_manifest.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -350,13 +339,193 @@
 
 
 
-</div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
         
     
+    </div>
 
     
 
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<div class="section-members">
+<h4 class="name" id=".Author">Author</h4>
+
+
+
+
+<div class="description">
+    Formatted as;<br><code>Example Name (http://domain.tld) [username@domain.tld]</code>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef_manifest.js.html">typedef/manifest.js</a>, <a href="typedef_manifest.js.html#line14">line 14</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>String</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+            
+                
+<div class="section-members">
+<h4 class="name" id=".Type">Type</h4>
+
+
+
+
+<div class="description">
+    Can either be <code>generic</code>, <code>bot</code>, or <code>library</code>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="typedef_manifest.js.html">typedef/manifest.js</a>, <a href="typedef_manifest.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>String</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+            
     
 
     
