@@ -41,7 +41,7 @@ global.SB =
 	token: SBcore.token.getTokens(),
 }
 
-global.SB.storage = new require("./storageManager.js").connection();
+global.SB.storage = new SB.core.storageManager.connection();
 
 console.log("Populating `global.SB`");
 // Set all of the variables in `global.SB`
