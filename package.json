@@ -1,6 +1,6 @@
 {
 	"name": "base",
-	"license": "GPL-3.0-or-later",
+	"license": "LGPL-3.0",
 	"version": "0.1.0",
 	"branch": "stable",
 	"description": "An Open Source General Purpose Discord Bot written in Node.JS",
@@ -15,7 +15,7 @@
 		"debug": "node . --debug",
 		"build": "node . --build",
 		"test": "node .",
-		"generateJSDoc": "jsdoc -c ./jsdoc.json"
+		"jsdoc": "jsdoc -c ./jsdoc.json"
 	},
 	"repository": {
 		"type": "git",
@@ -44,6 +44,8 @@
 		"tinytoolbox": "0.0.7"
 	},
 	"devDependencies": {
+		"better-docs": "^2.3.2",
+		"jaguarjs-jsdoc": "^1.1.0",
 		"minami": "^1.2.3",
 		"tui-jsdoc-template": "^1.2.2"
 	}
