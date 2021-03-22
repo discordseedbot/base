@@ -11,7 +11,7 @@ var SBcore = require("./corelib.js");
  * @property {module:corelib.LaunchParameters} parameters - Launch Parameters
  * @property {module:corelib.Modules} modules
  * @property {module:corelib.storage} storage
- * @property {module:corelib-token.tokenStorage} token
+ * @property {module:CoreToken.tokenStorage} token
  * @property {module:corelib} core
  */
 global.SB =
@@ -22,6 +22,7 @@ global.SB =
 		safe: false,
 		inspect: false,
 		debug: false,
+		developer: false,
 		raw:{}
 	},
 	prefrences: SBcore.getPrefrences(),
@@ -50,4 +51,7 @@ SB.core.getModules().then((data)=>{
 	global.SB.modules = data;
 })
 
-console.log(SB)
+// Increment Build Number for Somewhat Easier Version Control.
+if (SB.parameters.developer) {
+	SB.core.incrementBuildID()
+}
