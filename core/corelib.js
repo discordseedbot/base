@@ -6,13 +6,13 @@ const toolbox = require("tinytoolbox");
 
 /**
  * Core Library Module
- * @module corelib
- * @property {function} setParameter - {@link module:corelib.setParameter}
- * @property {function} getParameters - {@link module:corelib.getParameters}
- * @property {funciton} getNPMArray - {@link module:corelib.getNPMArray}
- * @property {function} getPrefrences - {@link module:corelib.getPrefrences}
- * @property {function} forceFilter - {@link module:corelib.forceFilter}
- * @property {function} getModules - {@link module:corelib.getModules}
+ * @module CoreLibrary
+ * @property {function} setParameter - {@link module:CoreLibraryrary.setParameter}
+ * @property {function} getParameters - {@link module:CoreLibraryrary.getParameters}
+ * @property {funciton} getNPMArray - {@link module:CoreLibraryrary.getNPMArray}
+ * @property {function} getPrefrences - {@link module:CoreLibraryrary.getPrefrences}
+ * @property {function} forceFilter - {@link module:CoreLibraryrary.forceFilter}
+ * @property {function} getModules - {@link module:CoreLibraryrary.getModules}
  */
 module.exports = 
 {
@@ -21,7 +21,7 @@ module.exports =
 	 * If entry.js is launched as "node core/entry.js --build" then the property "build" will be true.
 	 * 
 	 * If entry.js is launched as "node core/entry.js --debug=false" then the property "debug" will be false. In other words you can force the state of a parameter by sort of treating it like a variable.
-	 * @typedef {Object} module:corelib.LaunchParameters
+	 * @typedef {Object} module:CoreLibraryrary.LaunchParameters
 	 * @property {boolean} build - Build Mode
 	 * @property {boolean} safe - Safe Mode
 	 * @property {boolean} inspect - Using Chrome Devtools Inspect
@@ -34,7 +34,7 @@ module.exports =
 	 * @type {function}
 	 * @param {string} gstr_object - Parameter to be set
 	 * @param {boolean} gbool_content - State of parameter to be set
-	 * @returns {module:corelib.LaunchParameters} - Returns {@link module:corelib.LaunchParameters|Launch Parameters}
+	 * @returns {module:CoreLibrary.LaunchParameters} - Returns {@link module:CoreLibrary.LaunchParameters|Launch Parameters}
 	*/
 	setParameter: (gstr_object,gbool_content)=>{
 		if (gstr_object === undefined) throw "Object Undefined";
@@ -58,7 +58,7 @@ module.exports =
 	 * Generate a JSON for Core Arguments
 	 * @type {function}
 	 * @async
-	 * @returns {module:corelib.LaunchParameters}
+	 * @returns {module:CoreLibrary.LaunchParameters}
 	 */
 	getParameters: async ()=>{
 		var returnJSON =
@@ -67,6 +67,7 @@ module.exports =
 			safe: false,
 			inspect: false,
 			debug: false,
+			developer: false,
 		}
 		await toolbox.async.forEach(process.argv,(arg)=>{
 			return new Promise((resolve)=>{
@@ -102,7 +103,7 @@ module.exports =
 	/**
 	 * Generate an array of Module Requires from package.json 
 	 * @type {function}
-	 * @returns {module:corelib.Modules.node}
+	 * @returns {module:CoreLibrary.Modules.node}
 	 */
 	getNPMArray: ()=>{
 		var temp_dependArray = toolbox.JSON.toArray(require("./../package.json").dependencies);
@@ -141,73 +142,17 @@ module.exports =
 	},
 
 	/**
-	 * Modules
-	 * @description A module is stored in a folder, the name of the folder can be anything but it is suggested to not be a generic name, what matters the most is the <code>name</code> object in <code>manifest.json</code> in the actual module's folder.
-	 * @typedef {Object} module:corelib.Modules
-	 * @property {module:corelib.BotModule[]} bot - Array of Bot Modules
-	 * @property {module:corelib.GenericModule[]} gen - Array of Generic Modules
-	 * @property {module:corelib.LibraryModule[]} lib - Array of Libraries
-	 * @property {module:corelib.NodeModule[]} node - Array of NPM Modules
-	 */
-
-	/**
-	 * @description Located in the module's folder with the file name of; <code>manifest.json</code>
-	 * @typedef {Object} module:corelib.ModuleManifest
-	 * @property {string} name - Must be case-sensitive alphanumeric with (obviously) no special characters.
-	 * @property {string} version
-	 * @property {module:corelib.ManifestAuthor} author
-	 * @property {module:corelib.ManifestAuthor[]} contributers
-	 * @property {module:corelib.ManifestType} Type
-	 * @property {string} main - Default; <code>index.js</code>
-	 * @property {string} issues
-	 */
-
-	/**
-	 * @description Formatted as;<br><code>Example Name (http://domain.tld) [username@domain.tld]</code>
-	 * @typedef {string} module:corelib.ManifestAuthor
-	 */
-
-	/**
-	 * @description Can be; <code>generic</code>, <code>library</code>, or <code>bot</code>
-	 * @typedef {string} module:corelib.ManifestType
-	 */
-
-	/**
-	 * Bot Module
-	 * @typedef {Object} module:corelib.BotModule
-	 * @property {BotModuleScriptData} script
-	 * @property {ModuleManifest} manifest
-	 * @property {String} type - Module Type
-	 */
-
-	/**
-	 * Generic Module
-	 * @typedef {Object} module:corelib.GenericModule
-	 * @property {ModuleScriptData} script
-	 * @property {ModuleManifest} manifest
-	 * @property {String} type - Module Type
-	 */
-
-	/**
-	 * Library Module
-	 * @typedef {Object} module:corelib.LibraryModule
-	 * @property {ModuleScriptData} script
-	 * @property {ModuleManifest} manifest
-	 * @property {String} type - Module Type
-	 */
-
-	/**
 	 * NPM Module
 	 * This gets populated with the modules installed in package.json
 	 * 
 	 * e.g; modules.node.axios (for axios require)
-	 * @typedef {Object} module:corelib.NodeModule
-	 * @property {module:corelib.NodeModuleObject[]} moduleArray
+	 * @typedef {Object} module:CoreLibrary.NodeModule
+	 * @property {module:CoreLibrary.NodeModuleObject[]} moduleArray
 	 */
 
 	/**
 	 * Extended NPM Module
-	 * @typedef {Object} module:corelib.NodeModuleObject
+	 * @typedef {Object} module:CoreLibrary.NodeModuleObject
 	 * @property {String} module - Name of the NPM Module
 	 * @property {String} version - Version of the module installed
 	 * @property {Function} f - Actual NPM Module
@@ -217,7 +162,7 @@ module.exports =
 	/**
 	 * Generate a JSON of Modules
 	 * @type {function}
-	 * @returns {module:corelib.Modules}
+	 * @returns {module:CoreLibrary.Modules}
 	 */
 	getModules: ()=>{
 		var returnData = 
