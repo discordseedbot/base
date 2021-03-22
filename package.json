@@ -14,7 +14,8 @@
 		"start": "node .",
 		"debug": "node . --debug",
 		"build": "node . --build",
-		"test": "node .",
+		"dev": "node . --developer",
+		"test": "node . --test",
 		"jsdoc": "jsdoc -c ./jsdoc.json"
 	},
 	"repository": {
@@ -33,6 +34,7 @@
 		"230485481773596672"
 	],
 	"dependencies": {
+		"database-js": "^3.0.10",
 		"discord.js": "^12.5.1",
 		"fs": "0.0.1-security",
 		"http": "0.0.1-security",

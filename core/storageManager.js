@@ -7,8 +7,7 @@ const databaseJS = require("database-js").Connection;
  */
 
 /** Used for interacting with the chosen database type, When using database types that <strong>is not</strong> SQLite is not supported by the developers. */
-class StorageConnection
-{
+class StorageConnection {
 	/**
 	 * @private
 	 * @param {string} content 
@@ -22,12 +21,14 @@ class StorageConnection
 	/** @param {StorageConnection.Settings} */
 	constructor(settings) {
 		this.logHistory = [];
-		this.GUID = SB.modules.node.toolbox(6,3);
+		this.GUID = require("tinytoolbox").stringGen(6,3);
 
 		// Save settings as scope var
 		this.settings = settings;
 
 		// Create Database Connection
+
+		return;
 		this.connection = new databaseJS(this.settings.url);
 		this.log("Created Database Connection");
 	}

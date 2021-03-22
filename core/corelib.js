@@ -254,5 +254,9 @@ module.exports =
 
 			resolve(returnData);
 		})
-	}
+	},
+
+	buildtools: require("./buildtools.js"),
+	token: require("./token.js"),
+	storageManager: require("./storageManager"),
 }
