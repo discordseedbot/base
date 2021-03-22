@@ -8,11 +8,11 @@ var SBcore = require("./corelib.js");
  * @requires module:corelib
  * @requires module:discord.js
  * @property {module:Prefrences.CorePrefrences} prefrences
- * @property {module:corelib.LaunchParameters} parameters - Launch Parameters
- * @property {module:corelib.Modules} modules
- * @property {module:corelib.storage} storage
+ * @property {module:CoreLibrary.LaunchParameters} parameters - Launch Parameters
+ * @property {module:CoreModule} modules
+ * @property {module:StorageConnection} storage
  * @property {module:CoreToken.tokenStorage} token
- * @property {module:corelib} core
+ * @property {module:CoreLibrary} core
  */
 global.SB =
 {
@@ -32,13 +32,16 @@ global.SB =
 		bot: [],
 		gen: [],
 		lib: [],
+		loaded: []
 	},
 	client: {},
 	core: require("./corelib.js"),
 	package: require("./../package.json"),
-	storage: require("./storageManager.js"),
+	storage: {},
 	token: SBcore.token.getTokens(),
 }
+
+global.SB.storage = new require("./storageManager.js").connection();
 
 console.log("Populating `global.SB`");
 // Set all of the variables in `global.SB`
