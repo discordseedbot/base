@@ -27,7 +27,7 @@ module.exports = async()=>{
 
 	global.SB.client = new SB.modules.node["discord.js"].Client();
 
-	toolbox.async.forEach(SB.modules.bot,(module)=>{
+	await toolbox.async.forEach(SB.modules.bot,(module)=>{
 		var dbConnection = null;
 		var dbFileName = `${module.manifest.name}-${module.manifest.type}-${require("crypto").createHash('md5').update(JSON.stringify(module.manifest)).digest('hex')}.db3`
 		if (SB.core.storageManager.databaseExists(dbFileName)) {
@@ -41,39 +41,41 @@ module.exports = async()=>{
 			loadedTimestamp: Date.now(),
 			storage: dbConnection
 		}
-		SB.client.on('ready',()=>{
-			if (module.script.onMessage != undefined && typeof module.script.onMessage == "function") {
-				module.script.onMessage(SB.Client,moduleStorage)
-			}
-		})
 
 		global.SB.modules.loaded.push(moduleData);
 	})
 
-	SB.modules.loaded.forEach((module)=>{
+	await toolbox.async.forEach(SB.modules.loaded,async (module)=>{
 
-		if (module.type !== "bot" || module.type !== "generic") return;
 		if (module.script.onReady !== undefined && typeof module.script.onReady == "function") {
 			SB.client.on('ready',()=>{
 				module.script.onReady(module)
 			})
 		}
-
 		if (module.script.onMessage !== undefined && typeof module.script.onMessage == "function" && module.type == "bot") {
 			SB.client.on('message',(Message)=>{
 				if (Message.author.bot) return;
-				Message.arguments = Message.content.split(' ').shift() || [];
 				var prefix = SB.prefrences.prefix.default;
-				Message.command = Message.content.replace(prefix,"");
-				if (Message.command.split(' ').length[1] !== undefined) { Message.command = Message.command.split(' ')[0]; }
-				toolbox.async.forEach(toolbox.JSON.toArray(SB.prefrences.prefix.default),(pfx)=>{
+				toolbox.async.forEach(toolbox.JSON.toArray(SB.prefrences.prefix),(pfx)=>{
 					if (Message.content.startsWith(pfx[1])) {
 						prefix = pfx[1];
 					}
 				})
+				if (Message.content.indexOf(prefix) !== 0) return;
+				Message.arguments = Message.content.slice(prefix.length).trim().split(/ +/g);
+				Message.command = Message.arguments.shift().toLowerCase();
 
 				module.script.onMessage(Message,module)
 			})
 		}
 	})
+
+	SB.client.login(SB.token.discord).then(()=>{
+		console.log(`[DJS -> LOGIN] Connected to Discord as "@${SB.client.user.username}#${SB.client.user.discriminator}" (${SB.client.user.id})`);
+		SB.client.user.setPresence({status: 'online'}).catch().then();
+	}).catch((e)=>{
+		console.error(`\n\n################!!! FATAL ERROR !!!################`)
+		console.error(e);
+		process.exit(1);
+	});
 }
