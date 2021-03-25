@@ -1,4 +1,5 @@
 const fs = require("fs");
+const toolbox = require("tinytoolbox");
 
 var defaultToken = {
 	"discord": "",
@@ -32,12 +33,19 @@ module.exports = {
 		if (SB.prefrences.token.developer !== undefined) {
 			await module.exports.createTokenFile(`${SB.prefrences.token.developer.directory}${SB.prefrences.token.developer.filename}`);
 		}
-
+		var returnTokens = await require(`${directory}${SB.prefrences.token.filename}`);
 		if (SB.parameters.developer) {
-			return require(`${devdirectory}${SB.prefrences.token.developer.filename}`);
-		} else {
-			return require(`${directory}${SB.prefrences.token.filename}`);
+			var tempTokens = await require(`${devdirectory}${SB.prefrences.token.developer.filename}`);
+
+			// Overwrite temporary tokens with our developer tokens.
+			await toolbox.async.forEach(toolbox.JSON.toArray(tempTokens),(tk)=>{
+				if (tk[1].length > 1) {
+					returnTokens[tk[0]] = tk[1];
+				}
+			})
 		}
+
+		return returnTokens;
 	},
 	createTokenFile: async (location) => {
 		if (!fs.existsSync(location)) {
