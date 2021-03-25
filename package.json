@@ -39,8 +39,9 @@
 		"minami": "^1.2.3"
 	},
 	"build": {
-		"id": 0,
-		"timestamp": 1616653541433,
-		"hash": "db7e13415f635179ac6f4b37048a157306b385e4"
+		"id": 1,
+		"timestamp": 1616654603953,
+		"hash": "17f216e1da154e7e4e13a6cb9a573de9",
+		"hash_type": "ssl3-md5"
 	}
 }
