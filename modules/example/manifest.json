@@ -1,0 +1,10 @@
+{
+	"name": "example_module",
+	"version": "0.1",
+	"type": "bot",
+	"author": "Name [email] (website)",
+	"contributers": [],
+	"contact": "user@domain.tld",
+	"homepage": "https://example.com",
+	"main": "entry.js"
+}
