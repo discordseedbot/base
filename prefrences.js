@@ -1,12 +1,9 @@
 module.exports = 
 {
 	prefix: {
-		default: "s!",
-		dev: "s~",
-		music: "s?",
-		math: "s!math",
-		dmoj: "s!dmoj",
-		youtube: "s!yt"
+		default: "t!",
+		dev: "t~",
+		music: "t?",
 	},
 	token:
 	{
