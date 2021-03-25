@@ -27,44 +27,70 @@ module.exports = async()=>{
 
 	global.SB.client = new SB.modules.node["discord.js"].Client();
 
-	await toolbox.async.forEach(SB.modules.bot,(module)=>{
-		var dbConnection = null;
-		var dbFileName = `${module.manifest.name}-${module.manifest.type}-${require("crypto").createHash('md5').update(JSON.stringify(module.manifest)).digest('hex')}.db3`
-		if (SB.core.storageManager.databaseExists(dbFileName)) {
-			dbConnection = new SB.core.storageManager.connection({url:`sqlite:///data/db/${dbFileName}`});
-		}
-		
-		var moduleData = {
-			script: module.script,
-			manifest: module.manifest,
-			type: module.manifest.type,
-			loadedTimestamp: Date.now(),
-			storage: dbConnection
-		}
+	var loadModuleArray = async (arr) => {
+		await toolbox.async.forEach(arr,(module)=>{
+			var dbConnection = null;
+			var dbFileName = `${module.manifest.name}-${module.manifest.type}-${require("crypto").createHash('md5').update(JSON.stringify(module.manifest)).digest('hex')}.db3`
+			if (SB.core.storageManager.databaseExists(dbFileName)) {
+				dbConnection = new SB.core.storageManager.connection({url:`sqlite:///data/db/${dbFileName}`});
+			}
+			
+			var moduleData = {
+				script: module.script,
+				manifest: module.manifest,
+				type: module.manifest.type,
+				loadedTimestamp: Date.now(),
+				storage: dbConnection
+			}
 
-		global.SB.modules.loaded.push(moduleData);
-	})
+			global.SB.modules.loaded.push(moduleData);
+		})
+	};
+
+	// Load modules for generic, bot, and library objects.
+	await loadModuleArray(SB.modules.gen);
+	await loadModuleArray(SB.modules.bot);
+	await loadModuleArray(SB.modules.lib);
 
 	await toolbox.async.forEach(SB.modules.loaded,async (module)=>{
 
+		// Run this if the onReady object exists and is a function.
 		if (module.script.onReady !== undefined && typeof module.script.onReady == "function") {
 			SB.client.on('ready',()=>{
-				module.script.onReady(module)
+				module.script.onReady(module);
 			})
 		}
+
+		// Run this if the onMessage objcet is defined, the module is for bots, and the onMessage type is a function.
 		if (module.script.onMessage !== undefined && typeof module.script.onMessage == "function" && module.type == "bot") {
 			SB.client.on('message',(Message)=>{
-				if (Message.author.bot) return;
-				var prefix = SB.prefrences.prefix.default;
+				// Break if `manifest.allowBotAuthor` is undefined or false AND if the message author is a bot.
+				if (Message.author.bot && (module.manifest.allowBotAuthor == undefined || !module.manifest.allowBotAuthor)) return;
+
+				// Set default prefix
+				Message.prefix = SB.prefrences.prefix.default;
+				Message.prefixType = "default";
+
+				// Check if message starts with any of the prefixes, if so set our prefix as that.
 				toolbox.async.forEach(toolbox.JSON.toArray(SB.prefrences.prefix),(pfx)=>{
 					if (Message.content.startsWith(pfx[1])) {
 						prefix = pfx[1];
+						prefixType = pfx[0];
 					}
 				})
-				if (Message.content.indexOf(prefix) !== 0) return;
-				Message.arguments = Message.content.slice(prefix.length).trim().split(/ +/g);
+
+				// Break if this is not meant for us
+				if (Message.content.indexOf(Message.prefix) !== 0) return;
+
+				// Set Message arguments and command variable.
+				Message.arguments = Message.content.slice(Message.prefix.length).trim().split(/ +/g);
 				Message.command = Message.arguments.shift().toLowerCase();
 
+				// If a custom preset type is specifiyed in the manifest and
+				//		this message does not have our prefix in it we break.
+				if (module.manifest.prefix != undefined && module.manifest.prefix != Message.prefixType) return; 
+
+				// Call the onMessage function if we have not broken off this statement.
 				module.script.onMessage(Message,module)
 			})
 		}
