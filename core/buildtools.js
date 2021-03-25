@@ -15,7 +15,7 @@ module.exports =
 			try {
 				const fs = require("fs");
 				var templateConfig = {
-					"name": "Discord Bot",
+					"name": "mybot",
 					"version": "0.1",
 					"contributers": [ ],
 					"homepage": "https://example.com",
@@ -23,6 +23,12 @@ module.exports =
 					"build": {
 						"id": 0,
 						"timestamp": 0
+					},
+					"localization": {
+						"name": "DiscordBot",
+						"website": "https://example.com",
+						"contact": "anon@example.com",
+						"inviteLink": "https://example.com/invite"
 					}
 				};
 
@@ -54,11 +60,11 @@ module.exports =
 						if (mf[0] !== "build" && (mf[1] === undefined || typeof templateConfig[mf[0]] !== typeof mf[1])) {
 							mf[1] = templateConfig[mf[0]];
 									console.log(`[buildtools -> increment()] Object in "seedbot.config.json" at '${mf[0]}' is not a supported type, setting to default value '${originalJSON[mf[0]]}'`);
-						} else if (mf[0] === "build") {
-							await toolbox.async.forEach(toolbox.JSON.toArray(originalJSON.build),(bmf)=>{
-								if (bmf[1] === undefined || typeof bmf[1] !== typeof originalJSON.build[bmf[0]]) {
-									bmf[1] = originalJSON.build[bmf[0]];
-									console.log(`[buildtools -> increment()] Object in "seedbot.config.json" at 'build.${bmf[0]}' is not a supported type, setting to default value '${originalJSON.build[bmf[0]]}'`);
+						} else if (mf[0] === "build" || mf[0] === "localization") {
+							await toolbox.async.forEach(toolbox.JSON.toArray(originalJSON[mf[0]]),(bmf)=>{
+								if (bmf[1] === undefined || typeof bmf[1] !== typeof originalJSON[mf[0]][bmf[0]]) {
+									bmf[1] = originalJSON[mf[0]][bmf[0]];
+									console.log(`[buildtools -> increment()] Object in "seedbot.config.json" at '${mf[0]}.${bmf[0]}' is not a supported type, setting to default value '${originalJSON[mf[0]][bmf[0]]}'`);
 								}
 							})
 						}
