@@ -59,9 +59,9 @@ module.exports =
 						if (packageJSON.build == undefined) {
 							packageJSON.build = {id:0,timestamp:0,hash:""};
 						}
-
+						packageJSON.build.id++
 						packageJSON.build = {
-							id: packageJSON.build.id++,
+							id: packageJSON.build.id,
 							timestamp: Date.now(),
 							hash: directoryHash,
 							hash_type: hashOptions.algo
