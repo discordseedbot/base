@@ -50,10 +50,5 @@ module.exports =
 			error: "0",
 			notification: "0",
 		}
-	},
-	localization: {
-		name: "tetrabot",
-		website: "https://seedbot.xyz?brand=tetra",
-		contact: "tetrabot@dariox.club"
 	}
 }
