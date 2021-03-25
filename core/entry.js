@@ -7,11 +7,11 @@ var SBcore = require("./corelib.js");
  * @name SB
  * @requires module:corelib
  * @requires module:discord.js
- * @property {module:Prefrences.CorePrefrences} prefrences
+ * @property {module:Prefrences.CorePrefrences} prefrences - Contents of <code>./prefrences.js</code>
  * @property {module:CoreLibrary.LaunchParameters} parameters - Launch Parameters
  * @property {module:CoreModule} modules
- * @property {module:StorageConnection} storage
- * @property {module:CoreToken.tokenStorage} token
+ * @property {module:StorageManager} storage
+ * @property {module:CoreToken.scheme} token
  * @property {module:CoreLibrary} core
  */
 global.SB =

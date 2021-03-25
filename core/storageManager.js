@@ -63,7 +63,7 @@ class StorageConnection {
 
 /**
  * Storage Manager, used for storing module configurations using databases.
- * @module storageManager
+ * @module StorageManager
  * @extends corelib
  * @property {StorageConnection} connection
  */
