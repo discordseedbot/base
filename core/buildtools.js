@@ -1,3 +1,5 @@
+const { SlowBuffer } = require("buffer");
+const { dir } = require("console");
 const toolbox = require("tinytoolbox")
 
 /**
@@ -42,6 +44,38 @@ module.exports =
 						process.exit(1);
 					}
 				} else {
+					if (SB.parameters.developer) {
+						var packageJSON = await require("./../package.json");
+						const { hashElement } = require('folder-hash');
+						const hashOptions = {
+							folders: { include: ["core"], exclude: ["core/typedef"] },
+							files: { include: ["*.js", "*.json"] },
+							encoding: "hex",
+							algo: require("crypto").getHashes()[Math.floor(Math.random() * require("crypto").getHashes().length)]
+						};
+						var directoryHash = await hashElement(".",hashOptions);
+						directoryHash = directoryHash.hash;
+
+						if (packageJSON.build == undefined) {
+							packageJSON.build = {id:0,timestamp:0,hash:""};
+						}
+
+						packageJSON.build = {
+							id: packageJSON.build.id++,
+							timestamp: Date.now(),
+							hash: directoryHash,
+							hash_type: hashOptions.algo
+						}
+
+						try {
+							await fs.writeFileSync("./package.json",JSON.stringify(packageJSON,null,'\t'));
+							console.debug(`[buildTools -> increment -> package.json] Created Folder Hash with "${hashOptions.algo}"`);
+						} catch(e) {
+							console.error("An Error Occoured with incrementing this build",e);
+							rej();
+							process.exit(1);
+						}
+					}
 					var originalJSON = await require("./../seedbot.config.json");
 
 					originalJSON.build.id++;
