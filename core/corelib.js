@@ -70,32 +70,28 @@ module.exports =
 			developer: false,
 		}
 		await toolbox.async.forEach(process.argv,(arg)=>{
-			return new Promise((resolve)=>{
-				if(arg.startsWith("--"))
+			if(arg.startsWith("--"))
+			{
+				if (arg.includes("="))
 				{
-					if (arg.includes("="))
+					// Process Variable Setting
+					var temp = arg.replace("--","");
+					var targetObject = temp.split("=")[0];
+					var targetContent = temp.split("=")[1];
+					if (targetObject.length >= 1 && targetContent.length >= 1)
 					{
-						// Process Variable Setting
-						var temp = arg.replace("--","");
-						var targetObject = temp.split("=")[0];
-						var targetContent = temp.split("=")[1];
-						if (targetObject.length >= 1 && targetContent.length >= 1)
-						{
-							returnJSON.other[targetObject] = targetContent;
-						}
-						resolve();
+						returnJSON.other[targetObject] = targetContent;
+					}
+				} else {
+					var temp = arg.replace("--","");
+					if (returnJSON[temp] !== undefined)
+					{
+						returnJSON[temp] = true;
 					} else {
-						var temp = arg.replace("--","");
-						if (returnJSON[temp] !== undefined)
-						{
-							returnJSON[temp] = true;
-						} else {
-							returnJSON.other[temp] = true;
-						}
-						resolve();
+						returnJSON.other[temp] = true;
 					}
 				}
-			})
+			}
 		})
 		return returnJSON;
 	},
@@ -257,6 +253,8 @@ module.exports =
 	},
 
 	buildtools: require("./buildtools.js"),
+	build: require("./buildtools.js"),
 	token: require("./token.js"),
+	startup: require("./startup.js"),
 	storageManager: require("./storageManager"),
 }
