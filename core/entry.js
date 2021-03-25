@@ -41,20 +41,6 @@ global.SB =
 	token: SBcore.token.getTokens(),
 }
 
-global.SB.storage = new SB.core.storageManager.connection();
-
 console.log("Populating `global.SB`");
-// Set all of the variables in `global.SB`
-SB.core.getParameters().then((data)=>{
-	global.SB.parameters = data;
-})
 
-// Populate Modules Object
-SB.core.getModules().then((data)=>{
-	global.SB.modules = data;
-})
-
-// Increment Build Number for Somewhat Easier Version Control.
-if (SB.parameters.developer) {
-	SB.core.incrementBuildID()
-}
+SB.core.startup();
