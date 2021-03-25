@@ -166,7 +166,8 @@ module.exports =
 			node: SB.core.getNPMArray(),
 			bot: [],
 			gen: [],
-			lib: []
+			lib: [],
+			loaded: [],
 		}
 		return new Promise(async (resolve)=>{
 			var moduleDirectories = await new Promise((modresolve)=>{
