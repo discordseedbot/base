@@ -15,6 +15,9 @@ module.exports = {
 				var pingmsg = await Message.channel.send("Calculating...");
 				pingmsg.edit(`:satellite: Local ${pingmsg.createdTimestamp - Message.createdTimestamp}ms. \n:page_with_curl: API ${Math.round(SB.client.ws.ping)}ms`);
 				break;
+			case "uptime":
+				Message.channel.send(`I've been up since ${Message.client.readyAt}`);
+				break;
 		}
 	},
 }
