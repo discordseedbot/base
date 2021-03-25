@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>typedef/token.js - Documentation</title>
+    <title>typedef/DistributionConfig.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">typedef/token.js</h1>
+    <h1 class="page-title">typedef/DistributionConfig.js</h1>
     
 
     
@@ -40,16 +40,28 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @title Token
- * @module CoreToken
+ * Stored in &lt;code>./seedbot.config.json&lt;/code>
+ * @module DistributionConfig
+ * @property {String} name Alphanumberic String
+ * @property {String} version
+ * @property {String[]} contributers Formatted as &lt;code>Name [username@domain.tld] (protocol://domain.tld)&lt;/code>
+ * @property {String} homepage Formatted as &lt;code>protocol://domain.tld&lt;/code>
+ * @property {module:DistributionConfig.Localization} localization
+ * @property {module:DistributionConfig.BuildMetadata} build
  */
 
 /**
- * @typedef module:CoreToken.scheme
- * @property {string} discord - Discord Client Token
- * @property {string} youtube - Youtube API v3 Token
- * @property {string} api - Custom Statistics API Token
- * @property {string} osu - osu!bancho API Key
+ * @typedef {Object} module:DistributionConfig.Localization
+ * @property {String} name
+ * @property {String} website
+ * @property {String} contact
+ * @property {String} inviteLink
+ */
+
+/**
+ * @typedef {Object} module:DistributionConfig.BuildMetadata
+ * @property {Number} id
+ * @property {Number} timestamp Milliseconds since &lt;code>1st Jan 1970&lt;/code>
  */</code></pre>
         </article>
     </section>
