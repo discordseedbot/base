@@ -1,15 +1,13 @@
 {
 	"name": "TetraBot",
-	"version": "20d80",
-	"contributers":
-	[
+	"version": "20d83",
+	"contributers": [
 		"Jyles Coad-Ward [jyles@dariox.club] (https://jyles.club)"
 	],
 	"homepage": "https://jyles.club/tetrabot",
 	"contact": "tetra@seedbot.xyz",
-	"build":
-	{
-		"id": 0,
-		"timestamp": 0
+	"build": {
+		"id": 2,
+		"timestamp": 1616634146108
 	}
 }
