@@ -12,9 +12,8 @@ module.exports = {
 	onMessage: async (Message,Storage) => {
 		switch (Message.command) {
 			case "ping":
-				var start = Date.now()
-				var pingmsg = await Message.channel.send("Pong!");
-				pingmsg.edit(`Pong! Took \`${Date.now() - start}ms\``);
+				var pingmsg = await Message.channel.send("Calculating...");
+				pingmsg.edit(`:satellite: Local ${pingmsg.createdTimestamp - Message.createdTimestamp}ms. \n:page_with_curl: API ${Math.round(SB.client.ws.ping)}ms`);
 				break;
 		}
 	},
