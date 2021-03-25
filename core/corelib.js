@@ -251,10 +251,16 @@ module.exports =
 			resolve(returnData);
 		})
 	},
+	/**
+	 * Function that holds all of the tasks necessary to start up. The majority of these are async functions that require await
+	 * @function
+	 * @method
+	 * @async
+	 */
+	startup: require("./startup.js"),
 
 	buildtools: require("./buildtools.js"),
 	build: require("./buildtools.js"),
 	token: require("./token.js"),
-	startup: require("./startup.js"),
 	storageManager: require("./storageManager"),
 }

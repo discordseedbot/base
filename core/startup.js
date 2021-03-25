@@ -1,3 +1,9 @@
+
+/**
+ * @extends module:CoreLibrary
+ * @description Function that holds all of the tasks necessary to start up. The majority of these are async functions that require await
+ * @async
+ */
 module.exports = async()=>{
 
 	await SB.core.getParameters()
