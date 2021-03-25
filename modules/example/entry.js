@@ -12,8 +12,9 @@ module.exports = {
 	onMessage: async (Message,Storage) => {
 		switch (Message.command) {
 			case "ping":
-				var pingmsg = await message.channel.send("Pong!");
-				pingmsg.edit(`Pong! Took \`${Date.now() - pingmsg.createdTimestamp}ms\``);
+				var start = Date.now()
+				var pingmsg = await Message.channel.send("Pong!");
+				pingmsg.edit(`Pong! Took \`${Date.now() - start}ms\``);
 				break;
 		}
 	},
