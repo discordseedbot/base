@@ -27,10 +27,8 @@ class StorageConnection {
 		this.settings = settings;
 
 		// Create Database Connection
-
-		return;
 		this.connection = new databaseJS(this.settings.url);
-		this.log("Created Database Connection");
+		this.log(`Created Database Connection to "${this.settings.url}"`);
 	}
 
 	/** Reset connection to the storage database */
@@ -70,4 +68,37 @@ class StorageConnection {
 module.exports =
 {
 	connection: StorageConnection,
+	createDatabase: async(fileName) => {
+		const fs = require("fs");
+		if (fs.existsSync(`./data/${fileName}`)) {
+			throw `[storageManager -> createDatabase] Database '${fileName}' already exists!`;
+		}
+
+		try {
+			fs.copyFileSync("./core/defaultDatabase.db3",`./data/${fileName}`);
+		} catch (e) {
+			console.log(`[storageManager -> createDatabase] Error with copying database to destination "./data/${fileName}"`);
+			throw e;
+		}
+
+		return `sqlite:///data/db/${fileName}`;
+	},
+	databaseExists: async(fileName) => {
+		const fs = require("fs");
+		var file = `./data/db/${fileName}`;
+
+		if (!fs.existsSync(file)) {
+			module.exports.createDatabase(fileName);
+		}
+		var dbfunction = require("database-js");
+		try {
+			const connection = new dbfunction.Connection(`sqlite:///data/db/${fileName}`);
+		} catch (e) {
+			console.log(`[storageManager -> databaseExists] Database exists but an error was caught`);
+			console.error(e);
+			process.exit(1);
+		}
+
+		return true;
+	}
 }
