@@ -45,3 +45,25 @@
  * @property {module:Manifest.Type} type
  * @property {number} loadTimestamp UNIX Timestamp of when this module was loaded
  */
+
+/**
+ * @description Bot Script <code>module.exports</code> scheme
+ * @typedef {Object} module:CoreModule.BotScript
+ * @property {module:CoreModule.onReady} onReady - Called when the Discord Ready Event is Fired.
+ * @property {module:CoreModule.onMessage} onMessage - Called when the Discord Message Event is Fired.
+ */
+
+/**
+ * Runs when the ready event is fired from the Discord.JS Client
+ * @typedef {Function} module:CoreModule.onReady
+ * @param {Object} Client - {@link https://discord.js.org/#/docs/main/stable/class/Client Discord.JS Client}
+ * @param {StorageConnection} Storage - Storage Connection
+ */
+
+/**
+ * Runs when a message event is fired from the Discord.JS Client
+ * @typedef {Function} module:CoreModule.onMessage
+ * @param {Object} Message - {@link https://discord.js.org/#/docs/main/stable/class/Message Discord.JS Message}
+ * @param {StorageConnection} Storage - Storage Connection
+ * @requires module:CoreModule.Bot
+ */

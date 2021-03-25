@@ -7,12 +7,12 @@ const toolbox = require("tinytoolbox");
 /**
  * Core Library Module
  * @module CoreLibrary
- * @property {function} setParameter - {@link module:CoreLibraryrary.setParameter}
- * @property {function} getParameters - {@link module:CoreLibraryrary.getParameters}
- * @property {funciton} getNPMArray - {@link module:CoreLibraryrary.getNPMArray}
- * @property {function} getPrefrences - {@link module:CoreLibraryrary.getPrefrences}
- * @property {function} forceFilter - {@link module:CoreLibraryrary.forceFilter}
- * @property {function} getModules - {@link module:CoreLibraryrary.getModules}
+ * @property {function} setParameter - {@link module:CoreLibrary.setParameter}
+ * @property {function} getParameters - {@link module:CoreLibrary.getParameters}
+ * @property {funciton} getNPMArray - {@link module:CoreLibrary.getNPMArray}
+ * @property {function} getPrefrences - {@link module:CoreLibrary.getPrefrences}
+ * @property {function} forceFilter - {@link module:CoreLibrary.forceFilter}
+ * @property {function} getModules - {@link module:CoreLibrary.getModules}
  */
 module.exports = 
 {
@@ -21,7 +21,7 @@ module.exports =
 	 * If entry.js is launched as "node core/entry.js --build" then the property "build" will be true.
 	 * 
 	 * If entry.js is launched as "node core/entry.js --debug=false" then the property "debug" will be false. In other words you can force the state of a parameter by sort of treating it like a variable.
-	 * @typedef {Object} module:CoreLibraryrary.LaunchParameters
+	 * @typedef {Object} module:CoreLibrary.LaunchParameters
 	 * @property {boolean} build - Build Mode
 	 * @property {boolean} safe - Safe Mode
 	 * @property {boolean} inspect - Using Chrome Devtools Inspect
