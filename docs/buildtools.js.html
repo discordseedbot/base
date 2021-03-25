@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>typedef/prefrences.js - Documentation</title>
+    <title>buildtools.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">typedef/prefrences.js</h1>
+    <h1 class="page-title">buildtools.js</h1>
     
 
     
@@ -39,77 +39,94 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
+            <pre class="prettyprint source linenums"><code>const toolbox = require("tinytoolbox")
+
 /**
- * Prefrences
- * @namespace
- * @title Prefrences
- * @description Prefrences, can be refered to the Bot Config. Entry point is {@link module:Prefrences.CorePrefrences}
- * @module Prefrences 
+ * @module CoreBuildTools
+ * @description A set of tools that is used for managing builds, currently only used for incrementing/documentating Build ID's.
  */
-
+module.exports = 
+{
 	/**
-	 * @typedef {Object} module:Prefrences.CorePrefrences
-	 * @title Core Prefrences
-	 * @property {module:Prefrences.PrefixConfig} prefix - Settings for Bot Prefixes
-	 * @property {module:Prefrences.TokenSettings} token - Settings for Token Location~Directory Location
-	 * @property {String[]} admin - Array of Discord User ID's that bypass command restrictions.
-	 * @property {module:Prefrences.CacheSettings} cache - Settings for Custom Caching
-	 * @property {module:Prefrences.DiscordSettings} discord - Settings for the Discord Client
-	 * @property {module:Prefrences.AlertSettings} alert - Settings for Developer Alerts
-	 * @property {module:Prefrences.ClientLocalization} localization - Localization~Branding for the Bot
+	 * @type {Function}
+	 * @description Increment Build Number and document new build timestamp.
 	 */
+	increment: ()=>{
+		return new Promise(async (res,rej)=>{
+			try {
+				const fs = require("fs");
+				var templateConfig = {
+					"name": "Discord Bot",
+					"version": "0.1",
+					"contributers": [ ],
+					"homepage": "https://example.com",
+					"contact": "username@example.com",
+					"build": {
+						"id": 0,
+						"timestamp": 0
+					}
+				};
 
-	/**
-	 * @typedef {Object} module:Prefrences.PrefixConfig
-	 * @property {String} default - Default Prefix, used for most commands
-	 * @property {String} dev - Prefix used for developer commands
-	 * @property {String} music - Prefix used for music-related commands
-	 */
+				if (!fs.existsSync("./seedbot.config.json")) {
 
-	/**
-	 * @typedef module:Prefrences.TokenSettings
-	 * @property {boolean} enviroment - Use enviroment variables
-	 * @property {string} directory - Directory containing the bot token JSON files realitive to "package.json"
-	 * @property {string} filename - Filename for default tokens
-	 * @property {module:Prefrences.TokenSettings} developer - Settings for Developer Tokens (Used when launched in debug~inspect mode)
-	 * 
-	 */
+					try {
+						await fs.writeFileSync("./seedbot.config.json",JSON.stringify(templateConfig,null,'\t'));
+					} catch(e) {
+						await console.error("An Error Occoured with incrementing this build",e);
+						rej();
+						process.exit(1);
+					}
+				} else {
+					var originalJSON = await require("./../seedbot.config.json");
 
-	/**
-	 * @typedef {Object} module:Prefrences.CacheSettings
-	 * @property {number} interval - Update Interval, Measured in milliseconds
-	 */
+					originalJSON.build.id++;
+					originalJSON.build.timestamp = await Date.now();
 
-	/**
-	 * @typedef {Object} module:Prefrences.DiscordSettings
-	 * @property {number} loginRetryAttempts - How many times should the client retry for login.
-	 * @property {number} attemptTimeout - How long to wait between login attempts, Measured in milliseconds.
-	 */
+					// Check if fields are valid
+					if (originalJSON.name === undefined || typeof originalJSON.name !== "string") {
+						originalJSON.name = "Discord Bot";
+					}
 
-	/**
-	 * @typedef {Object} module:Prefrences.AlertSettings
-	 * @property {boolean} enable - Enable Alerts
-	 * @property {module:Prefrences.AlertScopeChannels} developer
-	 * @property {module:Prefrences.AlertScopeChannels} userspace
-	 * @property {module:Prefrences.AlertScopeChannels} default
-	 */
+					if (originalJSON.version === undefined) {
+						originalJSON.version = templateConfig.version;
+					}
 
-	/**
-	 * @typedef {Object} module:Prefrences.AlertScopeChannels
-	 * @property {boolean} enable - Enable this scope
-	 * @property {string} error - Channel ID for Errors
-	 * @property {string} notification - Channel ID for Notifications
-	 * @property {string} unauth - Channel ID for commands that require different permissions for what the client expects.
-	 */
+					await toolbox.async.forEach(toolbox.JSON.toArray(originalJSON),async (mf)=>{
+						if (mf[0] !== "build" &amp;&amp; (mf[1] === undefined || typeof templateConfig[mf[0]] !== typeof mf[1])) {
+							mf[1] = templateConfig[mf[0]];
+									console.log(`[buildtools -> increment()] Object in "seedbot.config.json" at '${mf[0]}' is not a supported type, setting to default value '${originalJSON[mf[0]]}'`);
+						} else if (mf[0] === "build") {
+							await toolbox.async.forEach(toolbox.JSON.toArray(originalJSON.build),(bmf)=>{
+								if (bmf[1] === undefined || typeof bmf[1] !== typeof originalJSON.build[bmf[0]]) {
+									bmf[1] = originalJSON.build[bmf[0]];
+									console.log(`[buildtools -> increment()] Object in "seedbot.config.json" at 'build.${bmf[0]}' is not a supported type, setting to default value '${originalJSON.build[bmf[0]]}'`);
+								}
+							})
+						}
+					})
 
-	/**
-	 * @typedef {Object} module:Prefrences.ClientLocalization
-	 * @property {string} name - Branding name that the client should call itself
-	 * @property {string} website - Website that is associated with this client.
-	 * @property {string} content - Contact E-Mail Address for this client.
-	 * @property {string} langauge - Perfered Langauge, Uses ISO 639-2 Standard, Defaults to "eng"
-	 */</code></pre>
+					originalJSON = await JSON.stringify(originalJSON,null,'\t');
+
+					await fs.unlinkSync("./seedbot.config.json");
+
+					try {
+						await fs.writeFileSync("./seedbot.config.json",originalJSON);
+					} catch(e) {
+						await console.error("An Error Occoured with incrementing this build",e);
+						rej();
+						process.exit(1);
+					}
+
+					res();
+				}
+			} catch (e) {
+				await console.error("An Error Occoured with incrementing this build",e);
+				rej();
+				process.exit(1);
+			}
+		})
+	}
+}</code></pre>
         </article>
     </section>
 
