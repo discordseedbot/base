@@ -170,9 +170,10 @@ module.exports =
 		}
 		return new Promise(async (resolve)=>{
 			var moduleDirectories = await new Promise((modresolve)=>{
-				fs.readdir("./modules/",async (arr)=>{
+				fs.readdir("./modules/",async (e,arr)=>{
 					var temparr = [];
 					await toolbox.async.forEach(arr,(data)=>{	
+						if (!fs.lstatSync(`./modules/${data}`).isDirectory()) return;
 						if (!data.includes("core"))
 						{
 							temparr.push(data);
@@ -194,32 +195,41 @@ module.exports =
 
 				var script = null;
 				var scriptValid = true;
-				if (fs.existsSync(`./${directory}/manifest.json`))
+
+				var entryFile = "index.js";
+				if (fs.existsSync(`./modules/${directory}/manifest.json`))
 				{
-					var RAWManifest = await fs.readFileSync(`./${directory}/manifest.json`);
+					var RAWManifest = await fs.readFileSync(`./modules/${directory}/manifest.json`).toString();
 					if (toolbox.isJSON(RAWManifest)) {
-						manifest = await require(`./${directory}/manifest.json`);
+						manifest = await require(`./../modules/${directory}/manifest.json`);
+						if (manifest.main !== undefined && manifest.main.endsWith(".js")) {
+							entryFile = await manifest.main;
+						} else if (manifest.main !== undefined && !manifest.main.endsWith(".js")){
+							entryFile = `${manifest.main}.js`;
+						}
 					} else {
 						manifestValid = false;
-						console.error(`[getModules] Invalid JSON in "./${directory}/manifest.json"`);
+						console.error(`[getModules] Invalid JSON in "./modules/${directory}/manifest.json"`);
 					}
 				} else {
-					console.error(`[getModules] Manifest missing at "./${directory}/manifest.json"`)
+					console.error(`[getModules] Manifest missing at "./modules/${directory}/manifest.json"`)
 					manifestValid = false;
 				}
 
+				
+
 				// Check if script exists
-				if (fs.existsSync(`./${directory}/index.js`))
+				if (fs.existsSync(`./modules/${directory}/${entryFile}`))
 				{
 					// Use try:catch to check if script is valid
 					try {
-						script = await require(`./${directory}/index.js`);
+						script = await require(`./../modules/${directory}/${entryFile}`);
 					} catch(e) {
-						console.error(`[getModules] Script Invalid at "./${directory}/index.js"`)
+						await console.error(`[getModules] Script Invalid at "./modules/${directory}/${entryFile}"`)
 						scriptValid = false;
 					}
 				} else {
-					console.error(`[getModules] Script missing at "./${directory}/index.js"`)
+					await console.error(`[getModules] Script missing at "./modules/${directory}/${entryFile}"`)
 					scriptValid = false;
 				}
 
@@ -231,17 +241,17 @@ module.exports =
 					switch (manifest.type)
 					{
 						case "library":
-							returnData.lib.push(currentModuleData)
+							await returnData.lib.push(currentModuleData)
 							currentModuleData.type = manifest.type;
 							break;
 						case "bot":
-							returnData.bot.push(currentModuleData)
+							await returnData.bot.push(currentModuleData)
 							currentModuleData.type = manifest.type;
 							break;
 						default:
-							console.error(`[getModules] Invalid Module type "${module.type}" in "./${directory}/manifest.json". Adding to generic modules.`)
+							await onsole.error(`[getModules] Invalid Module type "${module.type}" in "./modules/${directory}/manifest.json". Adding to generic modules.`)
 						case "generic":
-							returnData.bot.push(currentModuleData)
+							await returnData.bot.push(currentModuleData)
 							currentModuleData.type = manifest.type;
 							break;
 					}
