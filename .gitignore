@@ -112,3 +112,4 @@ logs/
 
 .DS_Store
 secret/
+data/
