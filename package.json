@@ -4,11 +4,6 @@
 	"version": "0.1.0",
 	"branch": "stable",
 	"description": "An Open Source General Purpose Discord Bot written in Node.JS",
-	"build": {
-		"number": 52,
-		"date": "2021_2_5",
-		"timestamp": 1614923433
-	},
 	"main": "./core/entry.js",
 	"scripts": {
 		"start": "node .",
@@ -26,15 +21,12 @@
 		"url": "https://github.com/discordseedbot/base/issues"
 	},
 	"homepage": "https://seedbot.xyz",
-	"author": "SeedBot Contributers [seedbot@cock.li]",
 	"contributors": [
 		"Jyles Coad-Ward [jyles@dariox.club] (https://jyles.club)"
 	],
-	"ownerID": [
-		"230485481773596672"
-	],
 	"dependencies": {
 		"axios": "^0.21.1",
+		"crypto": "^1.0.1",
 		"database-js": "^3.0.10",
 		"discord.js": "^12.5.1",
 		"fs": "0.0.1-security",
