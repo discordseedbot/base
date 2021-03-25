@@ -38,7 +38,7 @@ global.SB =
 	core: require("./corelib.js"),
 	package: require("./../package.json"),
 	storage: {},
-	token: SBcore.token.getTokens(),
+	token: {},
 }
 
 console.log("Populating `global.SB`");

@@ -7,6 +7,7 @@
 module.exports = async()=>{
 
 	await SB.core.getParameters()
+	global.SB.token = await SB.core.token.getTokens();
 
 	// Set all of the variables in `global.SB`
 	global.SB.parameters = await SB.core.getParameters();
