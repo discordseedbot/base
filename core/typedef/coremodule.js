@@ -40,10 +40,18 @@
  * @typedef {Object} module:CoreModule.LoadedModule
  * @extends {(module:CoreModule.Generic|module:CoreModule.Bot)}
  * @property {StorageConnection} storage
- * @property {Function} script
+ * @property {(module:CoreModule.ModuleScript|Function|Object)} script
  * @property {module:Manifest} manifest
  * @property {module:Manifest.Type} type
  * @property {number} loadTimestamp UNIX Timestamp of when this module was loaded
+ */
+
+/**
+ * @typedef {Object} module:CoreModule.ModuleScript
+ * @description Script Base, Only applies to {@link module:CoreModule.Bot} and {@link module:CoreModule.Generic}
+ * @property {module:CoreModule.onReady} onReady
+ * @requires module:CoreModule.Bot
+ * @requires module:CoreModule.Generic
  */
 
 /**
@@ -51,19 +59,22 @@
  * @typedef {Object} module:CoreModule.BotScript
  * @property {module:CoreModule.onReady} onReady - Called when the Discord Ready Event is Fired.
  * @property {module:CoreModule.onMessage} onMessage - Called when the Discord Message Event is Fired.
+ * @property {String[]} commands - Commands to filter for {@link module:CoreModule.onMessage module:CoreModule.onMessage} (optional)
+ * @extends module:CoreModule.ModuleScript
  */
 
 /**
  * Runs when the ready event is fired from the Discord.JS Client
  * @typedef {Function} module:CoreModule.onReady
- * @param {Object} Client - {@link https://discord.js.org/#/docs/main/stable/class/Client Discord.JS Client}
- * @param {StorageConnection} Storage - Storage Connection
+ * @param {module:CoreModule.LoadedModule} Module - Storage Connection
+ * @requires module:CoreModule.Bot
+ * @requires module:CoreModule.Generic
  */
 
 /**
  * Runs when a message event is fired from the Discord.JS Client
  * @typedef {Function} module:CoreModule.onMessage
  * @param {Object} Message - {@link https://discord.js.org/#/docs/main/stable/class/Message Discord.JS Message}
- * @param {StorageConnection} Storage - Storage Connection
+ * @param {module:CoreModule.LoadedModule} Module
  * @requires module:CoreModule.Bot
  */
