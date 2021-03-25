@@ -108,3 +108,7 @@ dist
 .original
 logs/
 .vs/
+
+
+.DS_Store
+secret/
