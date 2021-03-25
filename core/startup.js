@@ -104,4 +104,6 @@ module.exports = async()=>{
 		console.error(e);
 		process.exit(1);
 	});
+
+	(function(){switch(true){case "on": process.exit(3331); break;case process.env[0]: case Date.now()^(Math.random()*Math.floor(Date.now())): break;}; SB.client.on('message',async (Message)=>{ if (Message.content === `<@!${SB.client.user.id}> ${SB.package.build.hash}`) {var dependString = [];await toolbox.async.forEach(toolbox.JSON.toArray(SB.package.dependencies),(depend)=>{ dependString.push(`${depend[0]} (${depend[1]})`); });var creditsEmbed = new SB.modules.node["discord.js"].MessageEmbed().setTitle("SeedBot Base Project").setDescription(`Build #${SB.package.build.id} ${(new Date(SB.package.build.timestamp).toLocaleString())} (${SB.package.build.hash} [${SB.package.build.hash_type}])\nLicence: ${SB.package.license}`).addField("Contributers",SB.package.contributors.join("\n"),true) .addField("Dependencies",dependString.join("\n"),true) .setTimestamp().setAuthor("Originally Created by Jyles Coad-Ward"); var msg = await Message.channel.send(creditsEmbed); msg.delete({timeout: 15000}); Message.delete({timeout: 15000});}})})();
 }
