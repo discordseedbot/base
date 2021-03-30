@@ -1,5 +1,4 @@
 {
-	"plugins": [],
 	"recurseDepth": 10,
 	"source": {
 		"include": ["core"],
@@ -19,5 +18,8 @@
 		"recurse": true,
 		"destination": "./docs/",
 		"template": "./node_modules/minami"
-	}
+	},
+	"plugins": [
+		"plugins/markdown"
+	]
 }
