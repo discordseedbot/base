@@ -1,3 +1,15 @@
+/**
+ * @projectname Discord.JS Bot Framework
+ * @version 0.1.0-alpha
+ */
+
+/**
+ * @file src/entry.js
+ * Just as it says in the name, this is where everything starts off.
+ * 
+ * Called from running scripts <code>run</code>, <code>debug</code>, <code>inspect</code>, and <code>developer</code>
+ */
+
 console.log("Setting up Internal Structure");
 var SBcore = require("./corelib.js");
 const fs = require("fs");
