@@ -38,6 +38,7 @@ if (!fs.existsSync("./data/")) {
  * @property {module:StorageManager} storage
  * @property {module:CoreToken.scheme} token
  * @property {module:CoreLibrary} core
+ * @property {module:CoreDiscordCache} discordcache
  */
 global.SB =
 {
@@ -62,6 +63,7 @@ global.SB =
 	client: {},
 	core: require("./corelib.js"),
 	package: require("./../package.json"),
+	discordcache: {},
 	storage: {},
 	token: {},
 }

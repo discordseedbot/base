@@ -249,11 +249,16 @@ module.exports =
 							await returnData.bot.push(currentModuleData)
 							currentModuleData.type = manifest.type;
 							break;
-						default:
-							await onsole.error(`[getModules] Invalid Module type "${module.type}" in "./modules/${directory}/manifest.json". Adding to generic modules.`)
+						case "noload":
+						case "example":
+							await console.log(`[getModules] Not loading module with type of "${module.type}" in "./modules/${directory}/manifest.json"`);
+							break;
 						case "generic":
 							await returnData.bot.push(currentModuleData)
 							currentModuleData.type = manifest.type;
+							break;
+						default:
+							await console.error(`[getModules] Invalid Module type "${module.type}" in "./modules/${directory}/manifest.json". Adding to generic modules.`)
 							break;
 					}
 				}
@@ -274,4 +279,5 @@ module.exports =
 	build: require("./buildtools.js"),
 	token: require("./token.js"),
 	storageManager: require("./storageManager"),
+	discordcache: require("./DiscordCache.js"),
 }
