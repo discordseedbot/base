@@ -18,5 +18,5 @@
 
 /**
  * @typedef {String} module:Manifest.Type
- * @description Can either be <code>generic</code>, <code>bot</code>, or <code>library</code>
+ * @description Can either be <code>generic</code>, <code>bot</code>, <code>library</code>, <code>example</code> (same as <code>noload</code>), or <code>noload</code>
  */

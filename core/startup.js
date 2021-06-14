@@ -27,6 +27,8 @@ module.exports = async()=>{
 
 	global.SB.client = new SB.modules.node["discord.js"].Client();
 
+	global.SB.discordcache = new SB.core.discordcache(global.SB.client);
+
 	var loadModuleArray = async (arr) => {
 		await toolbox.async.forEach(arr,(module)=>{
 			var dbConnection = null;

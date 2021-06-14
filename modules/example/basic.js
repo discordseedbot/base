@@ -1,7 +1,7 @@
 /** @type {module:CoreModule.BotScript} */
 module.exports = {
 	/** @type {String[]} */
-	commands: ["ping"],
+	commands: ["ping","uptime"],
 
 	/** @type {module:CoreModule.onReady} */
 	onReady: async (Client,Storage) => {

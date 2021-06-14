@@ -9,8 +9,8 @@ const databaseJS = require("database-js").Connection;
 /** Used for interacting with the chosen database type, When using database types that <strong>is not</strong> SQLite is not supported by the developers. */
 class StorageConnection {
 	/**
-	 * @private
-	 * @param {string} content 
+	 * @access private
+	 * @param {string} d - Log Content
 	 */
 	log(d)
 	{
@@ -18,7 +18,7 @@ class StorageConnection {
 		this.logHistory.push({content:d,timestamp:Date.now()});
 	}
 
-	/** @param {StorageConnection.Settings} */
+	/** @param {module:StorageConnection.Settings} */
 	constructor(settings) {
 		this.logHistory = [];
 		this.GUID = require("tinytoolbox").stringGen(6,3);
@@ -29,6 +29,22 @@ class StorageConnection {
 		// Create Database Connection
 		this.connection = new databaseJS(this.settings.url);
 		this.log(`Created Database Connection to "${this.settings.url}"`);
+	}
+
+	/**
+	 * @async
+	 * @description [Not Implemented] Update the storage cache
+	 * @access protected
+	 */
+	async UpdateCache()
+	{
+		this.log("The Method 'UpdateCache' is not implemented yet.");
+		// Function isn't complete yet so we ignore it being called and return.
+		return;
+
+		return new Promise((resolve)=>{
+			//var Statement = this.connection.prepareStatement("SELECT * FROM *;");
+		})
 	}
 
 	/** Reset connection to the storage database */
@@ -52,9 +68,29 @@ class StorageConnection {
 	*/
 	async raw(GivenStatement)
 	{
-		return new Promise(async (resolve,reject)=>{
-			var statement = await this.connection.prepareStatement(GivenStatement)
+		return new Promise((resolve,reject)=>{
+			var statement = this.connection.prepareStatement(GivenStatement)
 			statement.execute().then(resolve).catch(reject);
+		})
+	}
+
+	/**
+	 * @param {String} InputQuery - Input SQLite Query
+	 * @async
+	 * @description Sends a SQLite query to the database and returns {StorageConnection.SQLiteResponse}
+	 * @returns {StorageConnection.SQLiteResponse}
+	 */
+	async query(InputQuery)
+	{
+		if (InputQuery.length < 1)
+		{
+			throw "Query To Small!";
+		}
+
+		return new Promise(async (resolve,reject)=>{
+			var SQLiteStatement = this.connection.prepareStatement(InputQuery);
+			this.UpdateCache();
+			SQLiteStatement.execute().then(resolve).catch(reject);
 		})
 	}
 }
@@ -102,3 +138,26 @@ module.exports =
 		return true;
 	}
 }
+
+/* ==== Type Definitions ==== */
+
+/**
+ * @description SQLite Query Response
+ * @typedef {Object} module:StorageConnection.SQLiteResponse
+ * @property {StorageConnection.SQLiteRow[]} row - If query returns multiple responses
+ */
+
+/**
+ * @description SQLite Response Row
+ * @typedef {Object} module:StorageConnection.SQLiteRow
+ * @property {StorageConnection.SQLiteRecord[]} record - Array of SQLite Records
+ * @property {Number} rowindex - Array index of this row, starting from <code>0</code>
+ */
+
+/**
+ * @description SQLite Record
+ * @typedef {Object} module:StorageConnection.SQLiteRecord
+ * @property {String} column - Column Label
+ * @property {Number} columnindex - Array index of the column, starting from <code>0</code>
+ * @property {Object} data - The actual data.
+ */
