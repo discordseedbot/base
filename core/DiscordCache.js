@@ -1,4 +1,4 @@
-const DBConnection = require("database-js").Connection;
+const DBJS = require("database-js");
 
 class DiscordCache
 {
@@ -7,7 +7,7 @@ class DiscordCache
 		this.client = client;
 		// Cache get updated every 30 seconds
 		this.TimeoutInterval = 30000;
-		this.connection = new DBConnection(require("path").join())
+		this.connection = new DBJS.Connection('sqlite:///data/cache.discord.db')
 	}
 
 	TimeoutInterval = 15000;
