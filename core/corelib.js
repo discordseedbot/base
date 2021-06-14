@@ -226,7 +226,7 @@ module.exports =
 					try {
 						script = await require(`./../modules/${directory}/${entryFile}`);
 					} catch(e) {
-						await console.error(`[getModules] Script Invalid at "./modules/${directory}/${entryFile}"`)
+						await console.error(`[getModules] Script Invalid at "./modules/${directory}/${entryFile}"`,e)
 						scriptValid = false;
 					}
 				} else {
