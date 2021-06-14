@@ -2,5 +2,5 @@
 	"name": "example",
 	"version": "0.1",
 	"type": "example",
-	"main": "entry.js"
+	"main": "basic.js"
 }
