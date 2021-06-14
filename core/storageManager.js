@@ -92,7 +92,7 @@ module.exports =
 		}
 		var dbfunction = require("database-js");
 		try {
-			const connection = new dbfunction.Connection(`sqlite:///data/${fileName}`);
+			const connection = new dbfunction.Connection(`sqlite:///data/db/${fileName}`);
 		} catch (e) {
 			console.log(`[storageManager -> databaseExists] Database exists but an error was caught`);
 			console.error(e);
