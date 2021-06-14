@@ -251,14 +251,14 @@ module.exports =
 							break;
 						case "noload":
 						case "example":
-							await console.log(`[getModules] Not loading module with type of "${module.type}" in "./modules/${directory}/manifest.json"`);
+							await console.log(`[getModules] Not loading module with type of "${manifest.type}" in "./modules/${directory}/manifest.json"`);
 							break;
 						case "generic":
 							await returnData.bot.push(currentModuleData)
 							currentModuleData.type = manifest.type;
 							break;
 						default:
-							await console.error(`[getModules] Invalid Module type "${module.type}" in "./modules/${directory}/manifest.json". Adding to generic modules.`)
+							await console.error(`[getModules] Invalid Module type "${manifest.type}" in "./modules/${directory}/manifest.json". Adding to generic modules.`)
 							break;
 					}
 				}
