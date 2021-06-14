@@ -1,0 +1,8 @@
+{
+	"name": "role_sync",
+	"version": "0.1",
+	"type": "bot",
+	"author": "Jyles Coad-Ward [jyles@dariox.club] (https://jyles.club)",
+	"contributers": ["Jyles Coad-Ward [jyles@dariox.club] (https://jyles.club)"],
+	"main": "entry.js"
+}
